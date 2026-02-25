@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Faraid Suami Meninggal - Pembahagian Harta Pusaka Jika Suami Meninggal Dunia",
+  "description": "Ketahui pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri, anak-anak, dan ibu bapa mengikut hukum Islam.",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Faraid Suami Meninggal - Pembahagian Harta Pusaka Mengikut Hukum Islam"
+  description="Ketahui pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri, anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Faraid Suami Meninggal Dunia</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Panduan pembahagian harta pusaka mengikut hukum Faraid apabila si mati adalah seorang suami (lelaki).</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-emerald-800">Bahagian Isteri</h2>
+      <p>Apabila suami meninggal dunia, isteri (atau isteri-isteri) berhak mendapat bahagian tetap:</p>
+      <ul>
+        <li><strong>1/8 (satu perlapan)</strong> — jika si mati mempunyai anak (lelaki atau perempuan).</li>
+        <li><strong>1/4 (satu perempat)</strong> — jika si mati tiada anak langsung.</li>
+      </ul>
+      <p>Jika suami mempunyai lebih daripada seorang isteri (maksimum 4), bahagian 1/8 atau 1/4 tersebut <strong>dikongsi sama rata</strong> antara semua isteri.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Bahagian Anak-anak</h2>
+      <ul>
+        <li><strong>Anak lelaki</strong> — Asabah (mengambil baki selepas bahagian tetap).</li>
+        <li><strong>Anak perempuan sahaja (1 orang)</strong> — 1/2 daripada harta bersih.</li>
+        <li><strong>Anak perempuan sahaja (2 orang ke atas)</strong> — 2/3 dikongsi sama rata.</li>
+        <li><strong>Anak lelaki + anak perempuan</strong> — Baki dibahagi dengan nisbah 2:1 (anak lelaki dapat dua kali ganda anak perempuan).</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Bahagian Ibu Bapa Si Mati</h2>
+      <ul>
+        <li><strong>Bapa</strong> — 1/6 jika ada anak. Jika tiada anak, bapa menjadi Asabah (mengambil baki).</li>
+        <li><strong>Ibu</strong> — 1/6 jika ada anak. 1/3 jika tiada anak.</li>
+      </ul>
+
+      <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-200 not-prose mt-6">
+        <h3 class="font-bold text-emerald-900 text-lg mb-2">Contoh Senario</h3>
+        <p class="text-sm text-slate-700 mb-2">Seorang suami meninggal dunia dengan harta bersih RM 240,000. Waris: 1 isteri, 1 anak lelaki, 1 anak perempuan, ibu masih hidup.</p>
+        <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside">
+          <li>Isteri: 1/8 = RM 30,000</li>
+          <li>Ibu: 1/6 = RM 40,000</li>
+          <li>Baki (Asabah): RM 170,000 — Anak lelaki: RM 113,333, Anak perempuan: RM 56,667</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-800 text-center">Kira Pembahagian Faraid Anda</h2>
+      <p class="text-slate-600 text-center">Gunakan kalkulator di bawah untuk mengira pembahagian sebenar berdasarkan situasi anda.</p>
+      <Calculator client:visible />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid Lengkap</a>
+      <span>&middot;</span>
+      <a href="/faraid-ibu-meninggal" class="text-emerald-600 hover:underline">Faraid Ibu Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-ayah-meninggal" class="text-emerald-600 hover:underline">Faraid Ayah Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-anak-lelaki-dan-perempuan" class="text-emerald-600 hover:underline">Faraid Anak Lelaki & Perempuan</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+    </div>
+  </article>
+</BaseLayout>

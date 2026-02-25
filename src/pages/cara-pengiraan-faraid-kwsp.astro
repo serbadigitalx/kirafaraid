@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cara Pengiraan Faraid KWSP - Panduan Lengkap Pembahagian Wang KWSP",
+  "description": "Ketahui cara pengiraan Faraid untuk wang KWSP (Kumpulan Wang Simpanan Pekerja). Panduan lengkap pembahagian wang KWSP mengikut hukum Faraid Islam di Malaysia.",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Cara Pengiraan Faraid KWSP - Pembahagian Wang KWSP Mengikut Hukum Islam"
+  description="Ketahui cara pengiraan Faraid untuk wang KWSP. Panduan lengkap pembahagian wang Kumpulan Wang Simpanan Pekerja mengikut hukum Faraid Islam di Malaysia."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Cara Pengiraan Faraid KWSP</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Panduan lengkap pembahagian wang KWSP (Kumpulan Wang Simpanan Pekerja) mengikut hukum Faraid Islam di Malaysia.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-emerald-800">Adakah Wang KWSP Tertakluk kepada Faraid?</h2>
+      <p>Ya, wang KWSP si mati adalah sebahagian daripada harta pusaka dan <strong>tertakluk kepada pembahagian Faraid</strong>. Walaupun pencarum KWSP menamakan penama (nominee), penama tersebut hanyalah pentadbir (administrator) yang bertanggungjawab mengagihkan wang kepada waris yang berhak mengikut hukum Faraid.</p>
+      <p>Ini berbeza dengan insurans konvensional di mana penama adalah penerima mutlak. Untuk KWSP, penama hanya memegang amanah.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Langkah Pengiraan Faraid KWSP</h2>
+      <ol>
+        <li><strong>Tentukan jumlah penuh wang KWSP</strong> si mati (Akaun 1 + Akaun 2).</li>
+        <li><strong>Masukkan ke dalam harta kasar</strong> bersama aset lain (hartanah, simpanan bank, saham, dll.).</li>
+        <li><strong>Tolak kos pengurusan jenazah, hutang, harta sepencarian</strong>, dan wasiat (jika ada).</li>
+        <li><strong>Bahagikan baki bersih</strong> mengikut hukum Faraid kepada semua waris yang layak.</li>
+      </ol>
+
+      <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-200 not-prose mt-6">
+        <h3 class="font-bold text-emerald-900 text-lg mb-2">Contoh Pengiraan</h3>
+        <p class="text-sm text-slate-700">Seorang lelaki meninggal dunia dengan wang KWSP RM 200,000 dan aset lain RM 300,000. Jumlah harta kasar = RM 500,000. Selepas tolak hutang RM 50,000 dan harta sepencarian RM 100,000, baki bersih = RM 350,000. Baki ini dibahagikan mengikut Faraid kepada isteri, anak-anak, dan ibu bapa (jika masih hidup).</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Proses Tuntutan KWSP Si Mati</h2>
+      <ol>
+        <li>Dapatkan <strong>Sijil Kematian</strong> dari Jabatan Pendaftaran Negara.</li>
+        <li>Mohon <strong>Sijil Faraid</strong> dari Mahkamah Syariah (untuk orang Islam).</li>
+        <li>Hantar permohonan pengeluaran di <strong>kaunter KWSP</strong> atau melalui portal i-Akaun.</li>
+        <li>KWSP akan mengeluarkan wang kepada penama atau pentadbir yang dilantik.</li>
+        <li>Pentadbir mengagihkan wang mengikut Sijil Faraid.</li>
+      </ol>
+
+      <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 not-prose mt-6">
+        <h3 class="font-bold text-yellow-800 mb-2">Penting</h3>
+        <p class="text-sm text-yellow-800/80">Pastikan anda melantik penama KWSP semasa masih hidup untuk memudahkan proses pengeluaran wang oleh waris. Penama tidak bermaksud penerima tunggal — ia adalah orang yang diamanahkan untuk mentadbir wang tersebut.</p>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-800 text-center">Cuba Kalkulator Faraid</h2>
+      <p class="text-slate-600 text-center">Masukkan maklumat harta termasuk wang KWSP untuk mengira pembahagian Faraid.</p>
+      <Calculator client:visible />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid Lengkap</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam",
+  "description": "Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil.",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam"
+  description="Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Pembahagian Harta Mengikut Faraid</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Panduan lengkap cara pembahagian harta pusaka mengikut hukum Faraid Islam yang diamalkan di Malaysia.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-emerald-800">Apa Itu Pembahagian Harta Pusaka?</h2>
+      <p>Pembahagian harta pusaka adalah proses mengagihkan harta si mati kepada waris yang berhak. Bagi orang Islam di Malaysia, pembahagian ini lazimnya dilakukan mengikut <strong>hukum Faraid</strong> berdasarkan Mazhab Syafi'i, kecuali semua waris bersetuju menggunakan kaedah lain (Takharuj/Muafakat).</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Langkah-langkah Pembahagian Harta Pusaka</h2>
+      <ol>
+        <li><strong>Tentukan harta kasar</strong> — Senaraikan semua aset termasuk hartanah, wang tunai, simpanan bank, KWSP, saham, kenderaan, dan lain-lain.</li>
+        <li><strong>Tolak kos pengurusan jenazah</strong> — Kos memandi, mengafan, dan pengebumian.</li>
+        <li><strong>Selesaikan hutang</strong> — Termasuk hutang bank, pinjaman peribadi, zakat tertunggak, dan lain-lain.</li>
+        <li><strong>Tolak harta sepencarian</strong> — Bahagian pasangan hidup ke atas harta perolehan bersama (ditentukan oleh Mahkamah Syariah).</li>
+        <li><strong>Laksanakan wasiat</strong> — Maksimum 1/3 daripada baki bersih untuk bukan waris.</li>
+        <li><strong>Bahagikan baki mengikut Faraid</strong> — Berdasarkan bahagian yang ditetapkan dalam Al-Quran dan Hadis.</li>
+      </ol>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Bahagian Tetap (Ashab al-Furud)</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border-collapse border border-slate-200">
+          <thead>
+            <tr class="bg-emerald-50">
+              <th class="border border-slate-200 px-4 py-2 text-left font-bold text-emerald-900">Waris</th>
+              <th class="border border-slate-200 px-4 py-2 text-left font-bold text-emerald-900">Syarat</th>
+              <th class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-900">Bahagian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border border-slate-200 px-4 py-2">Suami</td><td class="border border-slate-200 px-4 py-2">Tiada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/2</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Suami</td><td class="border border-slate-200 px-4 py-2">Ada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/4</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Isteri</td><td class="border border-slate-200 px-4 py-2">Tiada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/4</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Isteri</td><td class="border border-slate-200 px-4 py-2">Ada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/8</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Bapa</td><td class="border border-slate-200 px-4 py-2">Ada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/6</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Ibu</td><td class="border border-slate-200 px-4 py-2">Ada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/6</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Ibu</td><td class="border border-slate-200 px-4 py-2">Tiada anak</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/3</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak perempuan (1)</td><td class="border border-slate-200 px-4 py-2">Tiada anak lelaki</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">1/2</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak perempuan (2+)</td><td class="border border-slate-200 px-4 py-2">Tiada anak lelaki</td><td class="border border-slate-200 px-4 py-2 text-center font-bold">2/3</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Asabah (Waris Baki)</h2>
+      <p>Selepas bahagian tetap diagihkan, baki harta diberikan kepada waris Asabah. Anak lelaki adalah Asabah utama. Jika tiada anak lelaki, bapa menjadi Asabah. Jika anak lelaki dan anak perempuan wujud bersama, mereka berkongsi baki dengan nisbah <strong>2:1</strong>.</p>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-800 text-center">Kira Pembahagian Harta Anda</h2>
+      <p class="text-slate-600 text-center">Masukkan maklumat harta dan waris untuk mengira pembahagian Faraid secara automatik.</p>
+      <Calculator client:visible />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid Lengkap</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+      <span>&middot;</span>
+      <a href="/apa-itu-faraid" class="text-emerald-600 hover:underline">Apa Itu Faraid?</a>
+    </div>
+  </article>
+</BaseLayout>

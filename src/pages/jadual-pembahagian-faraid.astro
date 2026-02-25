@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap",
+  "description": "Jadual pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam. Carta faraid untuk suami, isteri, anak, dan ibu bapa.",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap"
+  description="Jadual pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam. Carta faraid untuk suami, isteri, anak, dan ibu bapa."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Jadual Pembahagian Faraid</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Carta pecahan Faraid lengkap untuk setiap waris mengikut hukum Islam Mazhab Syafi'i.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 space-y-8">
+      <h2 class="text-2xl font-bold text-emerald-800">Pecahan Bahagian Tetap (Ashab al-Furud)</h2>
+      <p class="text-slate-600 text-sm">Bahagian yang telah ditetapkan secara qat'i (pasti) dalam Al-Quran. Pecahan yang wujud adalah: 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-slate-200">
+          <thead>
+            <tr class="bg-emerald-700 text-white">
+              <th class="border border-emerald-600 px-4 py-3 text-left font-bold">Waris</th>
+              <th class="border border-emerald-600 px-4 py-3 text-center font-bold">Bahagian</th>
+              <th class="border border-emerald-600 px-4 py-3 text-left font-bold">Syarat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-emerald-50"><td colspan="3" class="border border-slate-200 px-4 py-2 font-bold text-emerald-800">Pasangan</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Suami</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/2</td><td class="border border-slate-200 px-4 py-2">Si mati tiada anak</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Suami</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/4</td><td class="border border-slate-200 px-4 py-2">Si mati ada anak</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Isteri</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/4</td><td class="border border-slate-200 px-4 py-2">Si mati tiada anak</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Isteri</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/8</td><td class="border border-slate-200 px-4 py-2">Si mati ada anak</td></tr>
+
+            <tr class="bg-emerald-50"><td colspan="3" class="border border-slate-200 px-4 py-2 font-bold text-emerald-800">Ibu Bapa</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Bapa</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/6</td><td class="border border-slate-200 px-4 py-2">Ada anak / cucu lelaki</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Bapa</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/6 + Baki</td><td class="border border-slate-200 px-4 py-2">Ada anak perempuan sahaja</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Bapa</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">Baki (Asabah)</td><td class="border border-slate-200 px-4 py-2">Tiada anak</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Ibu</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/6</td><td class="border border-slate-200 px-4 py-2">Ada anak / 2+ adik-beradik</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Ibu</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/3</td><td class="border border-slate-200 px-4 py-2">Tiada anak & kurang 2 adik-beradik</td></tr>
+
+            <tr class="bg-emerald-50"><td colspan="3" class="border border-slate-200 px-4 py-2 font-bold text-emerald-800">Anak-anak</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak Perempuan (1)</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">1/2</td><td class="border border-slate-200 px-4 py-2">Tiada anak lelaki</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak Perempuan (2+)</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">2/3</td><td class="border border-slate-200 px-4 py-2">Tiada anak lelaki</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak Lelaki</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">Baki (Asabah)</td><td class="border border-slate-200 px-4 py-2">Mengambil semua baki</td></tr>
+            <tr><td class="border border-slate-200 px-4 py-2">Anak Lelaki + Perempuan</td><td class="border border-slate-200 px-4 py-2 text-center font-bold text-emerald-700">Baki (2:1)</td><td class="border border-slate-200 px-4 py-2">Lelaki 2x perempuan</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+        <h3 class="font-bold text-yellow-800 mb-2">Nota</h3>
+        <p class="text-sm text-yellow-800/80">Jadual di atas menunjukkan waris utama sahaja. Kes yang melibatkan datuk, nenek, saudara kandung/seibu/sebapa (Kalalah), dan waris jauh memerlukan penilaian pakar. Sila rujuk Peguam Syarie untuk kes yang kompleks.</p>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-800 text-center">Cuba Kalkulator Faraid</h2>
+      <p class="text-slate-600 text-center">Masukkan maklumat harta dan waris untuk melihat pengiraan automatik.</p>
+      <Calculator client:visible />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/apa-itu-faraid" class="text-emerald-600 hover:underline">Apa Itu Faraid?</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+      <span>&middot;</span>
+      <a href="/pembahagian-harta-mengikut-faraid" class="text-emerald-600 hover:underline">Pembahagian Harta</a>
+      <span>&middot;</span>
+      <a href="/faraid-anak-lelaki-dan-perempuan" class="text-emerald-600 hover:underline">Faraid Anak Lelaki & Perempuan</a>
+    </div>
+  </article>
+</BaseLayout>

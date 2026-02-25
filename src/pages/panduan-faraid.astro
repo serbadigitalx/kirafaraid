@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaraidGuide from '../components/FaraidGuide.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Panduan Lengkap Faraid di Malaysia - Memahami Pembahagian Harta Pusaka Islam",
+  "description": "Panduan lengkap memahami hukum Faraid mengikut Mazhab Syafi'i di Malaysia. Ketahui cara pembahagian harta pusaka, hak waris, dan peraturan yang perlu dipatuhi.",
+  "inLanguage": "ms",
+  "publisher": {
+    "@type": "Organization",
+    "name": "KiraFaraid",
+    "url": "https://www.kirafaraid.my"
+  }
+};
+---
+
+<BaseLayout
+  title="Panduan Faraid Malaysia - Memahami Pembahagian Harta Pusaka Islam"
+  description="Panduan lengkap memahami hukum Faraid mengikut Mazhab Syafi'i di Malaysia. Ketahui cara pembahagian harta pusaka, hak waris, dan peraturan yang perlu dipatuhi."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Panduan Lengkap Pembahagian Faraid</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Langkah demi langkah cara mengira dan membahagikan harta pusaka mengikut hukum Faraid Mazhab Syafi'i di Malaysia.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+
+      <h2 class="text-2xl font-bold text-emerald-800">Pengenalan: Mengapa Faraid Penting?</h2>
+      <p>Apabila seseorang Muslim meninggal dunia, harta peninggalannya tidak boleh dibahagikan sesuka hati. Islam telah menetapkan satu sistem pembahagian yang adil melalui hukum <strong>Faraid</strong> — setiap waris menerima bahagian yang telah ditentukan oleh Allah SWT dalam Al-Quran. Sistem ini memastikan tiada waris yang dizalimi dan harta diagihkan secara saksama berdasarkan tanggungjawab serta hubungan kekeluargaan.</p>
+      <p>Panduan ini membawa anda melalui keseluruhan proses pembahagian harta pusaka secara Faraid, daripada langkah awal sebelum pengiraan sehinggalah kaedah menentukan bahagian setiap waris. Jika anda ingin memahami <strong>definisi dan dalil Faraid</strong> secara mendalam, rujuk halaman <a href="/apa-itu-faraid" class="text-emerald-700 underline">Apa Itu Faraid?</a></p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Langkah-langkah Sebelum Pembahagian Faraid</h2>
+      <p>Sebelum harta pusaka dibahagikan kepada waris, terdapat beberapa kewajipan yang mesti diselesaikan terlebih dahulu mengikut tertib keutamaan. Harta pusaka bersih yang layak untuk Faraid hanya dikira selepas semua potongan berikut selesai:</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">1. Kos Pengurusan Jenazah</h3>
+      <p>Kos pengkebumian dan pengurusan jenazah si mati adalah tanggungan pertama ke atas harta pusaka. Ini termasuk kos kapan, pengebumian, dan upacara berkaitan. Kos ini diambil secara munasabah — tidak berlebihan dan tidak terlalu kedekut.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">2. Hutang Si Mati</h3>
+      <p>Semua hutang si mati wajib dilunaskan sebelum pembahagian. Hutang ini merangkumi:</p>
+      <ul>
+        <li><strong>Hutang kepada Allah</strong> — zakat yang belum ditunaikan, kaffarah, nazar, dan haji (jika sudah wajib tetapi belum dilaksanakan).</li>
+        <li><strong>Hutang kepada manusia</strong> — pinjaman bank, hutang peribadi, baki bayaran rumah atau kereta, bil tertunggak, dan seumpamanya.</li>
+      </ul>
+      <p>Jika harta pusaka tidak mencukupi untuk menampung semua hutang, harta tersebut diagihkan kepada pemiutang secara berkadar dan tiada baki untuk waris.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">3. Harta Sepencarian</h3>
+      <p><strong>Harta sepencarian</strong> ialah konsep unik dalam undang-undang Islam di Malaysia. Ia merujuk kepada harta yang diperoleh bersama oleh suami dan isteri sepanjang tempoh perkahwinan melalui usaha bersama. Bahagian pasangan yang masih hidup (biasanya separuh) akan diasingkan terlebih dahulu sebelum pengiraan Faraid. Bahagian ini bukan sebahagian daripada harta pusaka — ia adalah hak milik pasangan yang masih hidup. Untuk penjelasan lanjut, rujuk halaman <a href="/harta-sepencarian" class="text-emerald-700 underline">Harta Sepencarian</a>.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">4. Wasiat</h3>
+      <p>Si mati mungkin meninggalkan wasiat untuk menderma sebahagian hartanya kepada pihak tertentu. Dalam Islam, wasiat dihadkan kepada <strong>maksimum 1/3 (satu pertiga)</strong> daripada harta pusaka bersih, dan <strong>tidak boleh diberikan kepada waris Faraid</strong> kecuali dengan persetujuan semua waris lain. Baki selepas wasiat barulah dibahagikan secara Faraid.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Siapa Waris yang Layak?</h2>
+      <p>Waris dalam Islam terbahagi kepada dua kategori utama:</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Ashab al-Furud (Waris Bahagian Tetap)</h3>
+      <p>Waris yang menerima bahagian tetap yang telah dinyatakan dalam Al-Quran. Bahagian mereka tidak berubah melainkan dalam keadaan tertentu. Contoh:</p>
+      <ul>
+        <li><strong>Suami</strong> — 1/2 (tiada anak) atau 1/4 (ada anak)</li>
+        <li><strong>Isteri</strong> — 1/4 (tiada anak) atau 1/8 (ada anak)</li>
+        <li><strong>Ibu</strong> — 1/6 (ada anak atau dua adik-beradik ke atas) atau 1/3 (tiada anak dan kurang dari dua adik-beradik)</li>
+        <li><strong>Bapa</strong> — 1/6 (ada anak lelaki) atau 1/6 + Asabah (ada anak perempuan sahaja)</li>
+        <li><strong>Anak perempuan</strong> — 1/2 (seorang, tiada anak lelaki) atau 2/3 (dua orang atau lebih, tiada anak lelaki)</li>
+      </ul>
+      <p>Untuk jadual penuh bahagian setiap waris, rujuk halaman <a href="/jadual-pembahagian-faraid" class="text-emerald-700 underline">Jadual Pembahagian Faraid</a>.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Asabah (Waris Sisa / Residuary)</h3>
+      <p>Waris Asabah menerima <strong>baki harta</strong> selepas waris bahagian tetap mengambil bahagian masing-masing. Jika tiada baki, mereka tidak menerima apa-apa. Waris Asabah utama ialah:</p>
+      <ul>
+        <li><strong>Anak lelaki</strong> — Asabah bi nafsihi (dengan sendirinya). Jika ada anak perempuan bersama, mereka berkongsi baki pada nisbah 2:1 (lelaki mendapat dua kali ganda perempuan).</li>
+        <li><strong>Bapa</strong> — Menjadi Asabah jika tiada anak lelaki.</li>
+        <li><strong>Saudara lelaki seibu sebapa</strong> — Menjadi Asabah jika tiada anak dan bapa.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Kaedah Pengiraan Faraid</h2>
+      <p>Berikut ialah aliran pengiraan Faraid secara ringkas:</p>
+      <ol>
+        <li><strong>Tentukan harta pusaka bersih</strong> — Tolak kos jenazah, hutang, harta sepencarian, dan wasiat daripada jumlah harta kasar.</li>
+        <li><strong>Kenal pasti waris yang layak</strong> — Senaraikan semua waris yang hidup dan sahkan hubungan mereka dengan si mati.</li>
+        <li><strong>Tentukan bahagian tetap (Ashab al-Furud)</strong> — Berikan setiap waris bahagian tetap mereka berdasarkan jadual Faraid.</li>
+        <li><strong>Semak jumlah bahagian</strong> — Jika jumlah semua bahagian tetap melebihi 1 (iaitu harta tidak mencukupi), lakukan proses <strong>Aul</strong> (lihat di bawah).</li>
+        <li><strong>Agihkan baki kepada Asabah</strong> — Jika ada baki selepas bahagian tetap, agihkan kepada waris Asabah.</li>
+        <li><strong>Baitulmal</strong> — Jika tiada waris langsung, harta diserahkan kepada Baitulmal (perbendaharaan Islam negeri).</li>
+      </ol>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Apa Itu Aul?</h3>
+      <p><strong>Aul</strong> berlaku apabila jumlah bahagian tetap semua waris melebihi keseluruhan harta. Dalam keadaan ini, bahagian setiap waris <strong>dikurangkan secara berkadar</strong> supaya jumlah keseluruhan bersamaan dengan 1. Contohnya, jika jumlah bahagian ialah 13/12, setiap waris akan menerima bahagiannya daripada penyebut 13 dan bukannya 12. Aul memastikan semua waris masih menerima bahagian mereka, cuma dalam kadar yang lebih kecil.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Soalan Lazim (FAQ)</h2>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Adakah semua harta tertakluk kepada Faraid?</h3>
+      <p>Tidak semestinya. Harta yang mempunyai <strong>penama (nominee)</strong> seperti KWSP, insurans, dan Tabung Haji mungkin tidak termasuk dalam harta pusaka Faraid secara automatik. Namun, Majlis Fatwa Kebangsaan telah memutuskan bahawa penama KWSP hanyalah <strong>pentadbir (administrator)</strong>, bukan pemilik. Ini bermakna wang KWSP si mati tetap perlu dibahagikan secara Faraid. Setiap kes boleh berbeza — dapatkan nasihat peguam Syarie untuk kepastian.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Bolehkah waris bersetuju untuk membahagi sama rata?</h3>
+      <p>Ya, ini dikenali sebagai <strong>takharuj</strong> atau <strong>sulh</strong> (perundingan/perdamaian). Selepas bahagian Faraid dikira dan semua waris mengetahui hak masing-masing, mereka boleh secara <strong>sukarela</strong> bersetuju untuk membahagikan harta secara berbeza — termasuk sama rata. Syaratnya ialah semua waris yang layak mestilah bersetuju tanpa paksaan dan dalam keadaan faham akan hak mereka.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Bagaimana dengan harta pusaka yang melibatkan hartanah?</h3>
+      <p>Hartanah (tanah dan bangunan) sering menjadi bahagian terbesar harta pusaka. Jika hartanah tidak boleh dipecahkan secara fizikal, waris boleh memilih untuk: (a) menjual hartanah dan membahagikan hasil jualan, (b) seorang waris membeli bahagian waris lain, atau (c) menukar hartanah kepada pegangan bersama mengikut kadar Faraid. Proses ini memerlukan Perintah Pembahagian daripada Pejabat Tanah atau Mahkamah Tinggi.</p>
+
+      <h3 class="text-xl font-semibold text-slate-700 mt-6">Berapa lama proses tuntutan harta pusaka mengambil masa?</h3>
+      <p>Tempoh bergantung kepada nilai harta dan kerumitan kes. Harta pusaka kecil (di bawah RM 2 juta, tanpa hartanah) boleh diselesaikan melalui <strong>Amanah Raya Berhad</strong> atau <strong>Pejabat Tanah</strong> dalam beberapa bulan. Harta pusaka yang melibatkan hartanah atau pertikaian mungkin mengambil masa lebih lama melalui proses mahkamah. Adalah penting untuk memulakan proses tuntutan seawal mungkin bagi mengelak komplikasi.</p>
+
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <FaraidGuide />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/apa-itu-faraid" class="text-emerald-600 hover:underline">Apa Itu Faraid?</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+      <span>&middot;</span>
+      <a href="/faraid-suami-meninggal" class="text-emerald-600 hover:underline">Faraid Suami Meninggal</a>
+    </div>
+  </article>
+</BaseLayout>

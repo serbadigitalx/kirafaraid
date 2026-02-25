@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaraidGuide from '../components/FaraidGuide.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Apa Itu Faraid? Maksud, Hukum, dan Kepentingan Faraid dalam Islam",
+  "description": "Ketahui apa itu Faraid, hukum faraid dalam Islam, dan kepentingannya dalam pembahagian harta pusaka orang Islam di Malaysia mengikut Mazhab Syafi'i.",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Apa Itu Faraid? Maksud, Hukum, dan Kepentingan Faraid dalam Islam"
+  description="Ketahui apa itu Faraid, hukum faraid dalam Islam, dan kepentingannya dalam pembahagian harta pusaka orang Islam di Malaysia mengikut Mazhab Syafi'i."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Apa Itu Faraid?</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Memahami maksud, hukum, dan kepentingan Faraid dalam pembahagian harta pusaka Islam di Malaysia.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-emerald-800">Definisi Faraid</h2>
+      <p><strong>Faraid</strong> (فرائض) berasal daripada perkataan Arab "faridhah" yang bermaksud "bahagian yang telah ditetapkan." Dalam konteks Islam, Faraid merujuk kepada <strong>ilmu dan hukum pembahagian harta pusaka</strong> mengikut ketentuan yang telah ditetapkan oleh Allah SWT dalam Al-Quran.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Hukum Faraid</h2>
+      <p>Mempelajari dan melaksanakan Faraid adalah <strong>fardu kifayah</strong> — wajib bagi sekurang-kurangnya sebahagian umat Islam dalam sesebuah masyarakat untuk mengetahuinya. Dalil utama Faraid terdapat dalam:</p>
+      <ul>
+        <li><strong>Surah An-Nisa' (4:11-12)</strong> — Ayat ini menerangkan bahagian waris secara terperinci.</li>
+        <li><strong>Surah An-Nisa' (4:176)</strong> — Kalalah (kes tiada anak dan tiada bapa).</li>
+        <li><strong>Hadis Nabi SAW</strong> — "Pelajarilah ilmu Faraid dan ajarkanlah kepada orang lain, kerana sesungguhnya ia adalah separuh ilmu." (Riwayat Ibn Majah)</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Kepentingan Faraid</h2>
+      <ul>
+        <li><strong>Keadilan Ilahi</strong> — Pembahagian ditetapkan oleh Allah berdasarkan hikmah dan keadilan.</li>
+        <li><strong>Mengelak perbalahan</strong> — Memberikan panduan jelas supaya waris tidak bertelingkah.</li>
+        <li><strong>Melindungi hak waris</strong> — Setiap waris dijamin haknya tanpa boleh dinafikan.</li>
+        <li><strong>Kesinambungan ekonomi</strong> — Harta diagihkan kepada ramai penerima, mengelak pemusatan kekayaan.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Faraid di Malaysia</h2>
+      <p>Di Malaysia, Faraid dilaksanakan mengikut <strong>Mazhab Syafi'i</strong> yang merupakan mazhab rasmi negara. Proses pembahagian harta pusaka melibatkan:</p>
+      <ul>
+        <li><strong>Mahkamah Syariah</strong> — Mengeluarkan Sijil Faraid.</li>
+        <li><strong>Amanah Raya Berhad (ARB)</strong> — Mentadbir harta pusaka kecil (bawah RM 2 juta).</li>
+        <li><strong>Mahkamah Tinggi</strong> — Untuk harta pusaka besar atau melibatkan hartanah.</li>
+      </ul>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <FaraidGuide />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid Lengkap</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+      <span>&middot;</span>
+      <a href="/pembahagian-harta-mengikut-faraid" class="text-emerald-600 hover:underline">Pembahagian Harta</a>
+    </div>
+  </article>
+</BaseLayout>

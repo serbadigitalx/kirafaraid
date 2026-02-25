@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Kalkulator Faraid Selangor - Pembahagian Harta Pusaka Islam Selangor",
+  "description": "Kalkulator Faraid untuk penduduk Selangor. Pengiraan pembahagian harta pusaka mengikut hukum Faraid Islam yang ditadbir oleh MAIS (Majlis Agama Islam Selangor).",
+  "inLanguage": "ms",
+  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
+};
+---
+
+<BaseLayout
+  title="Kalkulator Faraid Selangor - Pembahagian Harta Pusaka Islam MAIS"
+  description="Kalkulator Faraid untuk penduduk Selangor. Pengiraan pembahagian harta pusaka mengikut hukum Faraid Islam yang ditadbir oleh MAIS."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-slate-800">Kalkulator Faraid Selangor</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Pengiraan pembahagian harta pusaka Islam untuk penduduk negeri Selangor mengikut Mazhab Syafi'i.</p>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-emerald-800">Faraid di Selangor</h2>
+      <p>Hukum Faraid yang digunakan di Selangor adalah sama dengan seluruh Malaysia — berdasarkan <strong>Mazhab Syafi'i</strong>. Pengiraan dan pecahan bahagian waris adalah konsisten di seluruh negara kerana ia bersumberkan Al-Quran dan Hadis.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Institusi Berkaitan di Selangor</h2>
+      <ul>
+        <li><strong>MAIS (Majlis Agama Islam Selangor)</strong> — Badan yang mentadbir hal ehwal agama Islam di Selangor termasuk pengurusan harta pusaka dan Baitulmal.</li>
+        <li><strong>Mahkamah Syariah Selangor</strong> — Mengeluarkan Sijil Faraid dan memutuskan kes harta sepencarian.</li>
+        <li><strong>Pejabat Tanah Daerah</strong> — Untuk urusan pindah milik hartanah berdasarkan Sijil Faraid.</li>
+        <li><strong>Amanah Raya Berhad</strong> — Mentadbir harta pusaka kecil (bawah RM 2 juta) di seluruh Malaysia termasuk Selangor.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-800 mt-8">Proses Tuntutan Harta Pusaka di Selangor</h2>
+      <ol>
+        <li>Dapatkan Sijil Kematian dari JPN.</li>
+        <li>Mohon Sijil Faraid di Mahkamah Syariah Selangor.</li>
+        <li>Untuk harta pusaka kecil (bawah RM 2 juta tanpa hartanah), mohon di Unit Pembahagian Pusaka.</li>
+        <li>Untuk harta melibatkan hartanah, mohon pentadbiran di Mahkamah Tinggi atau Pejabat Tanah.</li>
+      </ol>
+
+      <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 not-prose mt-6">
+        <h3 class="font-bold text-blue-800 mb-2">Adakah Pengiraan Faraid Berbeza di Setiap Negeri?</h3>
+        <p class="text-sm text-blue-800/80"><strong>Tidak</strong> — hukum Faraid adalah sama di seluruh Malaysia kerana ia berdasarkan syariat Islam. Yang berbeza hanyalah prosedur pentadbiran, institusi yang terlibat, dan proses permohonan di setiap negeri. Kalkulator KiraFaraid boleh digunakan untuk semua negeri di Malaysia.</p>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-2xl font-bold text-slate-800 text-center">Kira Pembahagian Faraid</h2>
+      <p class="text-slate-600 text-center">Gunakan kalkulator di bawah untuk mengira pembahagian harta pusaka anda.</p>
+      <Calculator client:visible />
+    </div>
+
+    <div class="text-center text-sm text-slate-500 space-x-4">
+      <a href="/" class="text-emerald-600 hover:underline">Kalkulator Faraid</a>
+      <span>&middot;</span>
+      <a href="/faraid-johor" class="text-emerald-600 hover:underline">Faraid Johor</a>
+      <span>&middot;</span>
+      <a href="/panduan-faraid" class="text-emerald-600 hover:underline">Panduan Faraid</a>
+      <span>&middot;</span>
+      <a href="/jadual-pembahagian-faraid" class="text-emerald-600 hover:underline">Jadual Pembahagian Faraid</a>
+      <span>&middot;</span>
+      <a href="/apa-itu-faraid" class="text-emerald-600 hover:underline">Apa Itu Faraid?</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-emerald-600 hover:underline">Harta Sepencarian</a>
+    </div>
+  </article>
+</BaseLayout>
