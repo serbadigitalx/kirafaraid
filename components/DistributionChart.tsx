@@ -6,15 +6,15 @@ interface DistributionChartProps {
   data: HeirShare[];
 }
 
-const COLORS = ['#059669', '#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5', '#065F46', '#064E3B'];
+const COLORS = ['#0D4F4F', '#1A7A7A', '#2D9F9F', '#C8A951', '#E5C76B', '#78716C', '#A3836A', '#D4C4A8'];
 
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-3 border border-emerald-100 shadow-xl rounded-lg text-sm">
-        <p className="font-bold text-emerald-800">{payload[0].name}</p>
-        <p className="text-slate-600">Pecahan: {payload[0].payload.fraction}</p>
-        <p className="text-emerald-600 font-semibold">RM {payload[0].value.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+      <div className="bg-white p-3 border border-warm-200 shadow-xl rounded-lg text-sm">
+        <p className="font-bold text-teal-800">{payload[0].name}</p>
+        <p className="text-warm-600">Pecahan: {payload[0].payload.fraction}</p>
+        <p className="text-teal-600 font-semibold">RM {payload[0].value.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
       </div>
     );
   }
@@ -32,8 +32,8 @@ const DistributionChart: React.FC<DistributionChartProps> = ({ data }) => {
   const activeData = chartData.filter(d => d.value > 0);
 
   return (
-    <div className="h-[350px] w-full bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center">
-      <h3 className="text-lg font-semibold text-slate-800 mb-4 self-start">Visual Pembahagian</h3>
+    <div className="h-[350px] w-full bg-white p-4 rounded-2xl border border-warm-200 shadow-sm flex flex-col items-center justify-center">
+      <h3 className="text-lg font-semibold text-warm-800 mb-4 self-start font-display">Visual Pembahagian</h3>
       <div className="w-full h-full">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

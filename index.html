@@ -21,11 +21,71 @@
   <meta name="google-site-verification" content="LTOBBPShGlb86veohUh-HtfUKT_xZ8ofvZRqy0_6eZ8" />
   <title>Kalkulator Faraid Malaysia - Kira Pembahagian Harta Pusaka Percuma</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              800: '#0D4F4F',
+              700: '#14605F',
+              600: '#1A7A7A',
+              500: '#2D9F9F',
+              400: '#4DB8B8',
+              300: '#7DCFCF',
+              200: '#B0E2E2',
+              100: '#D9F2F2',
+              50: '#EDF9F9',
+            },
+            gold: {
+              600: '#A68A3E',
+              500: '#C8A951',
+              400: '#E5C76B',
+              300: '#F0DFA0',
+              200: '#F5EBBD',
+              100: '#FBF5E6',
+              50: '#FDFAF0',
+            },
+            warm: {
+              50: '#FAF8F5',
+              100: '#F5F0EA',
+              200: '#E8E2D9',
+              300: '#D4CBC0',
+              400: '#B8ADA1',
+              500: '#9C9085',
+              600: '#78716C',
+              700: '#57534E',
+              800: '#44403C',
+              900: '#1C1917',
+            }
+          },
+          fontFamily: {
+            display: ['Amiri', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-display {
+      font-family: 'Amiri', serif;
+    }
+    .islamic-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A951' stroke-width='0.5'%3E%3Cpath d='M30 0L37.07 7.5L45 4.02L44.49 12.5L52.5 13.82L48.54 21.21L55.98 25.98L49.02 30L55.98 34.02L48.54 38.79L52.5 46.18L44.49 47.5L45 55.98L37.07 52.5L30 60L22.93 52.5L15 55.98L15.51 47.5L7.5 46.18L11.46 38.79L4.02 34.02L10.98 30L4.02 25.98L11.46 21.21L7.5 13.82L15.51 12.5L15 4.02L22.93 7.5Z'/%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 60px 60px;
+    }
+    .islamic-pattern-subtle {
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A951' stroke-width='0.4'%3E%3Crect x='10' y='10' width='60' height='60' transform='rotate(45 40 40)'/%3E%3Crect x='20' y='20' width='40' height='40' transform='rotate(45 40 40)'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cline x1='40' y1='0' x2='40' y2='80'/%3E%3Cline x1='0' y1='40' x2='80' y2='40'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+    }
+    .gold-separator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C8A951, transparent);
     }
   </style>
   <script type="importmap">
@@ -43,7 +103,7 @@
 </script>
 </head>
 
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-warm-50 text-warm-900">
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>

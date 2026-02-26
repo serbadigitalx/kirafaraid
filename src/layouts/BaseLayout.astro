@@ -35,12 +35,26 @@ const { title, description, canonical, ogImage, jsonLd } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="LTOBBPShGlb86veohUh-HtfUKT_xZ8ofvZRqy0_6eZ8" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <SEOHead title={title} description={description} canonical={canonical} ogImage={ogImage} jsonLd={jsonLd} />
+  <style is:global>
+    .font-display {
+      font-family: 'Amiri', serif;
+    }
+    .islamic-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A951' stroke-width='0.5'%3E%3Cpath d='M30 0L37.07 7.5L45 4.02L44.49 12.5L52.5 13.82L48.54 21.21L55.98 25.98L49.02 30L55.98 34.02L48.54 38.79L52.5 46.18L44.49 47.5L45 55.98L37.07 52.5L30 60L22.93 52.5L15 55.98L15.51 47.5L7.5 46.18L11.46 38.79L4.02 34.02L10.98 30L4.02 25.98L11.46 21.21L7.5 13.82L15.51 12.5L15 4.02L22.93 7.5Z'/%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 60px 60px;
+    }
+    .gold-separator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C8A951, transparent);
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
-  <div class="min-h-screen flex flex-col bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900">
+<body class="bg-warm-50 text-warm-900 font-sans">
+  <div class="min-h-screen flex flex-col bg-warm-50 selection:bg-teal-100 selection:text-teal-900">
     <Header />
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <main class="flex-grow w-full pt-8 md:pt-12 pb-16 md:pb-24">
       <slot />
     </main>
     <Footer />
