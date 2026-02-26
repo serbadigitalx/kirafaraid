@@ -105,7 +105,7 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
       {!embedded && <div className="gold-separator"></div>}
 
       {/* Calculator Form Section */}
-      <section ref={formRef} className="max-w-2xl mx-auto py-12 px-4">
+      <section ref={formRef} className="max-w-2xl mx-auto py-5 md:py-12 px-4">
         {!result && (
           <div className="text-center space-y-2 mb-10">
             <h3 className="text-2xl font-bold text-warm-900 font-display">Maklumat Pengiraan</h3>
@@ -113,7 +113,7 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
           </div>
         )}
         {result && (
-          <details className="mb-8 group">
+          <details className="mb-4 md:mb-8 group">
             <summary className="cursor-pointer flex items-center justify-between p-4 bg-white rounded-xl border border-warm-200 hover:border-teal-300 transition">
               <span className="font-semibold text-warm-800">Kemaskini Maklumat & Kira Semula</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-warm-500 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
@@ -148,7 +148,7 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
       {result && (
         <>
           <div className="gold-separator"></div>
-          <section ref={resultsRef} className="max-w-3xl mx-auto py-12 px-4 space-y-8">
+          <section ref={resultsRef} className="max-w-3xl mx-auto py-5 md:py-12 px-4 space-y-6 md:space-y-8">
             <ResultsView result={result} />
 
             <div className="bg-white p-6 rounded-2xl border border-warm-200 shadow-sm">
