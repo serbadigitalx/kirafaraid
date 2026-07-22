@@ -1,0 +1,25 @@
+---
+import { REVIEWER, REVIEWED_DATE, formatDateMs } from '../lib/seo';
+
+interface Props {
+  datePublished: string;
+}
+
+const { datePublished } = Astro.props;
+---
+
+<div class="text-center space-y-2">
+  <p class="text-sm text-warm-500">
+    Oleh <strong class="text-warm-700">Pasukan KiraFaraid</strong>
+    {REVIEWER && (
+      <>
+        <span class="mx-1">&middot;</span>Disemak oleh <strong class="text-warm-700">{REVIEWER}</strong>
+      </>
+    )}
+    <span class="mx-1">&middot;</span>Diterbitkan {formatDateMs(datePublished)}
+    <span class="mx-1">&middot;</span>Dikemas kini {formatDateMs(REVIEWED_DATE)}
+  </p>
+  <p class="text-xs text-warm-400 max-w-2xl mx-auto">
+    Kandungan ini untuk tujuan pendidikan dan bukan nasihat perundangan atau fatwa rasmi. Sila rujuk Mahkamah Syariah atau Peguam Syarie bertauliah untuk pengesahan.
+  </p>
+</div>

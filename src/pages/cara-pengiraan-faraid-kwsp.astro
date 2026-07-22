@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Cara Pengiraan Faraid KWSP - Panduan Lengkap Pembahagian Wang KWSP",
-  "description": "Ketahui cara pengiraan Faraid untuk wang KWSP (Kumpulan Wang Simpanan Pekerja). Panduan lengkap pembahagian wang KWSP mengikut hukum Faraid Islam di Malaysia.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = buildArticle({
+  headline: "Cara Pengiraan Faraid KWSP - Panduan Lengkap Pembahagian Wang KWSP",
+  description: "Ketahui cara pengiraan Faraid untuk wang KWSP (Kumpulan Wang Simpanan Pekerja). Panduan lengkap pembahagian wang KWSP mengikut hukum Faraid Islam di Malaysia.",
+  path: "/cara-pengiraan-faraid-kwsp/",
+  datePublished: "2026-02-25",
+});
 ---
 
 <BaseLayout
@@ -21,12 +21,13 @@ const jsonLd = {
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Cara Pengiraan Faraid KWSP</h1>
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan lengkap pembahagian wang KWSP (Kumpulan Wang Simpanan Pekerja) mengikut hukum Faraid Islam di Malaysia.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
       <h2 class="text-2xl font-bold text-teal-800">Adakah Wang KWSP Tertakluk kepada Faraid?</h2>
       <p>Ya, wang KWSP si mati adalah sebahagian daripada harta pusaka dan <strong>tertakluk kepada pembahagian Faraid</strong>. Walaupun pencarum KWSP menamakan penama (nominee), penama tersebut hanyalah pentadbir (administrator) yang bertanggungjawab mengagihkan wang kepada waris yang berhak mengikut hukum Faraid.</p>
-      <p>Ini berbeza dengan insurans konvensional di mana penama adalah penerima mutlak. Untuk KWSP, penama hanya memegang amanah.</p>
+      <p>Ini berbeza dengan insurans konvensional di mana penama adalah penerima mutlak. Untuk KWSP, penama hanya memegang amanah. Fahami dahulu <a href="/apa-itu-faraid" class="text-teal-700 underline">apa itu Faraid</a>, dan rujuk <a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">jadual pembahagian Faraid</a> untuk pecahan bahagian setiap waris.</p>
 
       <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah Pengiraan Faraid KWSP</h2>
       <ol>

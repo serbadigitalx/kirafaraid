@@ -73,9 +73,9 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
             <div className="inline-block px-4 py-1.5 bg-gold-500/20 border border-gold-500/30 rounded-full text-gold-300 text-sm font-medium mb-6">
               Mazhab Syafi'i - Malaysia
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold font-display mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold font-display mb-4 leading-tight">
               Kalkulator Faraid
-            </h2>
+            </h1>
             <p className="text-teal-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Kira pembahagian harta pusaka mengikut hukum Islam dengan tepat dan mudah.
             </p>

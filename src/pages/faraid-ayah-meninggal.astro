@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Faraid Ayah Meninggal - Pengiraan Faraid Jika Ayah Meninggal Dunia",
-  "description": "Ketahui pengiraan Faraid apabila ayah meninggal dunia. Bahagian isteri, anak-anak, dan ibu mengikut hukum Islam Mazhab Syafi'i di Malaysia.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = buildArticle({
+  headline: "Faraid Ayah Meninggal - Pengiraan Faraid Jika Ayah Meninggal Dunia",
+  description: "Ketahui pengiraan Faraid apabila ayah meninggal dunia. Bahagian isteri, anak-anak, dan ibu mengikut hukum Islam Mazhab Syafi'i di Malaysia.",
+  path: "/faraid-ayah-meninggal/",
+  datePublished: "2026-02-25",
+});
 ---
 
 <BaseLayout
@@ -21,6 +21,7 @@ const jsonLd = {
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Faraid Ayah Meninggal Dunia</h1>
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan pengiraan Faraid apabila si mati adalah seorang ayah (lelaki). Ketahui hak setiap waris mengikut hukum Islam.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
@@ -61,6 +62,8 @@ const jsonLd = {
           <li>1 Anak Perempuan: RM 51,000</li>
         </ul>
       </div>
+
+      <p class="text-sm text-warm-600 mt-6">Untuk semua kombinasi waris dan pecahan bahagian, rujuk <a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">jadual pembahagian Faraid penuh</a>.</p>
     </div>
 
     <div class="space-y-4">
@@ -73,6 +76,8 @@ const jsonLd = {
       <a href="/" class="text-teal-600 hover:underline">Kalkulator Faraid</a>
       <span>&middot;</span>
       <a href="/faraid-suami-meninggal" class="text-teal-600 hover:underline">Faraid Suami Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-isteri-meninggal" class="text-teal-600 hover:underline">Faraid Isteri Meninggal</a>
       <span>&middot;</span>
       <a href="/faraid-ibu-meninggal" class="text-teal-600 hover:underline">Faraid Ibu Meninggal</a>
       <span>&middot;</span>

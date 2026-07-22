@@ -1,39 +1,118 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FaraidGuide from '../components/FaraidGuide.astro';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Apa Itu Faraid? Maksud, Hukum, dan Kepentingan Faraid dalam Islam",
-  "description": "Ketahui apa itu Faraid, hukum faraid dalam Islam, dan kepentingannya dalam pembahagian harta pusaka orang Islam di Malaysia mengikut Mazhab Syafi'i.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = [
+  buildArticle({
+    headline: "Apa Itu Faraid? Maksud, Hukum, dan Pembahagian Harta Pusaka Islam",
+    description: "Ketahui apa itu Faraid, maksud dan hukum faraid dalam Islam (fardu kifayah), rukun, dalil Al-Quran, konteks Malaysia, salah faham biasa, dan pautan ke setiap senario pembahagian pusaka.",
+    path: "/apa-itu-faraid/",
+    datePublished: "2026-02-25",
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Apakah maksud Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Faraid (فرائض) berasal daripada perkataan Arab faridhah yang bermaksud bahagian yang telah ditetapkan. Ia merujuk kepada ilmu dan hukum pembahagian harta pusaka orang Islam mengikut kadar yang ditetapkan oleh Allah SWT dalam Al-Quran, terutamanya Surah An-Nisa'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah hukum Faraid dalam Islam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mempelajari dan melaksanakan Faraid adalah fardu kifayah, iaitu kewajipan yang mesti ditunaikan oleh sekurang-kurangnya sebahagian anggota masyarakat Islam. Pembahagian harta pusaka mengikut Faraid adalah wajib bagi umat Islam berdasarkan dalil qat'i dalam Al-Quran dan Sunnah."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Adakah Faraid wajib dilaksanakan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ya. Di Malaysia, Faraid adalah kaedah lalai (default) yang wajib bagi pembahagian harta pusaka orang Islam. Bahagian setiap waris adalah hak tetap yang tidak boleh dinafikan, kecuali waris bersetuju secara sukarela melalui mekanisme sah seperti takharuj."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Siapakah waris dalam Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waris utama termasuk pasangan (suami atau isteri), anak-anak (lelaki dan perempuan), serta ibu dan bapa si mati. Waris lain seperti datuk, nenek, dan adik-beradik hanya mewarisi apabila waris yang lebih hampir tiada."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bolehkah seseorang mengelak atau menolak Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pembahagian Faraid tidak boleh diketepikan sepenuhnya. Namun, sebahagian harta boleh diuruskan semasa hidup melalui hibah (pemberian) atau wasiat (maksimum 1/3 untuk bukan waris). Selepas kematian, waris juga boleh bersetuju menyusun semula bahagian melalui takharuj."
+        }
+      }
+    ]
+  }
+];
 ---
 
 <BaseLayout
-  title="Apa Itu Faraid? Maksud, Hukum, dan Kepentingan Faraid dalam Islam"
-  description="Ketahui apa itu Faraid, hukum faraid dalam Islam, dan kepentingannya dalam pembahagian harta pusaka orang Islam di Malaysia mengikut Mazhab Syafi'i."
+  title="Apa Itu Faraid? Maksud, Hukum, dan Pembahagian Harta Pusaka Islam"
+  description="Ketahui apa itu Faraid, maksud dan hukum faraid dalam Islam (fardu kifayah), rukun, dalil Al-Quran, konteks Malaysia, salah faham biasa, dan pautan ke setiap senario pembahagian pusaka."
   jsonLd={jsonLd}
 >
   <article class="max-w-4xl mx-auto space-y-12">
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Apa Itu Faraid?</h1>
-      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Memahami maksud, hukum, dan kepentingan Faraid dalam pembahagian harta pusaka Islam di Malaysia.</p>
+      <p class="text-lg text-warm-600 max-w-2xl mx-auto"><strong>Faraid</strong> ialah hukum pembahagian harta pusaka orang Islam mengikut kadar yang ditetapkan Allah SWT dalam Al-Quran. Mempelajari dan melaksanakannya adalah <strong>fardu kifayah</strong>. Panduan lengkap maksud, hukum, dan pelaksanaan Faraid di Malaysia.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
       <h2 class="text-2xl font-bold text-teal-800">Definisi Faraid</h2>
-      <p><strong>Faraid</strong> (فرائض) berasal daripada perkataan Arab "faridhah" yang bermaksud "bahagian yang telah ditetapkan." Dalam konteks Islam, Faraid merujuk kepada <strong>ilmu dan hukum pembahagian harta pusaka</strong> mengikut ketentuan yang telah ditetapkan oleh Allah SWT dalam Al-Quran.</p>
+      <p><strong>Faraid</strong> (فرائض) berasal daripada perkataan Arab <em>"faridhah"</em> yang bermaksud "bahagian yang telah ditetapkan". Dalam istilah syarak, Faraid — juga dikenali sebagai <em>ilmu al-mawarith</em> — merujuk kepada <strong>ilmu dan hukum pembahagian harta pusaka</strong> orang Islam mengikut kadar yang telah ditetapkan oleh Allah SWT. Ia menentukan siapakah yang layak mewarisi dan berapakah bahagian setiap waris selepas seseorang meninggal dunia.</p>
 
       <h2 class="text-2xl font-bold text-teal-800 mt-8">Hukum Faraid</h2>
-      <p>Mempelajari dan melaksanakan Faraid adalah <strong>fardu kifayah</strong> — wajib bagi sekurang-kurangnya sebahagian umat Islam dalam sesebuah masyarakat untuk mengetahuinya. Dalil utama Faraid terdapat dalam:</p>
+      <p>Mempelajari dan melaksanakan Faraid adalah <strong>fardu kifayah</strong> — kewajipan yang mesti ditunaikan oleh sekurang-kurangnya sebahagian anggota masyarakat Islam supaya harta pusaka dapat dibahagikan dengan betul. Dalil utama hukum Faraid terdapat dalam Al-Quran, terutamanya Surah An-Nisa' ayat 11:</p>
+      <blockquote class="border-l-4 border-teal-500 bg-teal-50 p-4 text-teal-900 italic">
+        "Allah perintahkan kamu mengenai (pembahagian harta pusaka untuk) anak-anak kamu, iaitu bahagian seorang anak lelaki menyamai bahagian dua orang anak perempuan..." (An-Nisa': 11)
+      </blockquote>
+      <p>Bahagian pasangan pula dinyatakan dalam Surah An-Nisa' ayat 12:</p>
+      <blockquote class="border-l-4 border-teal-500 bg-teal-50 p-4 text-teal-900 italic">
+        "Dan bagi kamu (suami-suami) seperdua dari harta yang ditinggalkan oleh isteri-isteri kamu jika mereka tidak mempunyai anak... Dan bagi mereka (isteri-isteri) pula seperempat dari harta yang kamu tinggalkan, jika kamu tidak mempunyai anak..." (An-Nisa': 12)
+      </blockquote>
+      <p>Ayat berikutnya (An-Nisa': 13–14) menegaskan bahawa pembahagian ini adalah <strong>batas-batas (hudud) Allah</strong> yang wajib dipatuhi, manakala ayat 176 menerangkan kes <em>Kalalah</em> (si mati tanpa anak dan tanpa bapa). Kewajipan menuntut ilmu ini turut ditekankan dalam hadis Nabi SAW:</p>
+      <blockquote class="border-l-4 border-teal-500 bg-teal-50 p-4 text-teal-900 italic">
+        "Pelajarilah ilmu Faraid dan ajarkanlah kepada orang lain, kerana sesungguhnya ia adalah separuh ilmu." (Riwayat Ibn Majah)
+      </blockquote>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Rukun dan Syarat Faraid</h2>
+      <p>Pembahagian pusaka secara Faraid berdiri di atas <strong>tiga rukun</strong>:</p>
       <ul>
-        <li><strong>Surah An-Nisa' (4:11-12)</strong> — Ayat ini menerangkan bahagian waris secara terperinci.</li>
-        <li><strong>Surah An-Nisa' (4:176)</strong> — Kalalah (kes tiada anak dan tiada bapa).</li>
-        <li><strong>Hadis Nabi SAW</strong> — "Pelajarilah ilmu Faraid dan ajarkanlah kepada orang lain, kerana sesungguhnya ia adalah separuh ilmu." (Riwayat Ibn Majah)</li>
+        <li><strong>Pewaris (al-Muwarrith)</strong> — orang yang meninggal dunia dan meninggalkan harta.</li>
+        <li><strong>Waris (al-Warith)</strong> — orang yang masih hidup dan layak mewarisi harta si mati.</li>
+        <li><strong>Harta pusaka (al-Mauruth)</strong> — harta bersih yang ditinggalkan selepas ditolak kos pengurusan jenazah, hutang, dan wasiat.</li>
       </ul>
+      <p>Terdapat tiga <strong>sebab mewarisi</strong>: hubungan kekeluargaan/keturunan (<em>nasab</em>), perkahwinan yang sah (<em>nikah</em>), dan pembebasan hamba (<em>wala'</em>). Sebaliknya, seseorang waris boleh terhalang daripada mewarisi kerana <strong>penghalang (mawani')</strong> seperti:</p>
+      <ul>
+        <li><strong>Membunuh</strong> pewaris.</li>
+        <li><strong>Berlainan agama</strong> (bukan Islam tidak mewarisi harta si mati Islam).</li>
+        <li><strong>Perhambaan</strong> (tidak lagi relevan pada masa kini).</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Faraid di Malaysia</h2>
+      <p>Di Malaysia, Faraid dilaksanakan mengikut <strong>Mazhab Syafi'i</strong> yang menjadi pegangan rasmi negara. Proses pembahagian harta pusaka melibatkan beberapa institusi mengikut jenis dan nilai harta:</p>
+      <ul>
+        <li><strong>Mahkamah Syariah</strong> — mengeluarkan <strong>Sijil Faraid</strong> yang menentukan bahagian setiap waris mengikut hukum syarak.</li>
+        <li><strong>Unit Pembahagian Pusaka Kecil (JKPTG)</strong> — menguruskan pusaka kecil yang mengandungi harta tak alih (biasanya bernilai bawah RM 2 juta).</li>
+        <li><strong>Amanah Raya Berhad (ARB)</strong> — mentadbir pembahagian harta pusaka, terutamanya harta alih.</li>
+        <li><strong>Mahkamah Tinggi (Sivil)</strong> — untuk pusaka besar melalui geran probet atau surat kuasa mentadbir.</li>
+      </ul>
+      <p>Rujukan rasmi: <a href="https://www.islam.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">JAKIM</a>, <a href="https://www.jksm.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Jabatan Kehakiman Syariah Malaysia (JKSM)</a>, dan <a href="https://www.amanahraya.com.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Amanah Raya Berhad</a>.</p>
 
       <h2 class="text-2xl font-bold text-teal-800 mt-8">Kepentingan Faraid</h2>
       <ul>
@@ -43,17 +122,51 @@ const jsonLd = {
         <li><strong>Kesinambungan ekonomi</strong> — Harta diagihkan kepada ramai penerima, mengelak pemusatan kekayaan.</li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-teal-800 mt-8">Faraid di Malaysia</h2>
-      <p>Di Malaysia, Faraid dilaksanakan mengikut <strong>Mazhab Syafi'i</strong> yang merupakan mazhab rasmi negara. Proses pembahagian harta pusaka melibatkan:</p>
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Salah Faham Biasa Tentang Faraid</h2>
+      <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 not-prose mt-6">
+        <ul class="space-y-3 text-sm text-warm-700">
+          <li><strong class="text-yellow-800">"Wasiat boleh menggantikan Faraid sepenuhnya."</strong> — Salah. Wasiat dihadkan kepada maksimum 1/3 harta dan tidak boleh diberikan kepada waris yang telah menerima Faraid (kecuali dengan persetujuan waris lain).</li>
+          <li><strong class="text-yellow-800">"Anak angkat mewarisi harta secara Faraid."</strong> — Salah. Anak angkat tidak mewarisi secara Faraid, tetapi boleh diberikan harta melalui hibah atau wasiat semasa hidup.</li>
+          <li><strong class="text-yellow-800">"Isteri atau anak perempuan tidak berhak ke atas rumah."</strong> — Salah. Isteri dan anak perempuan adalah waris tetap (Ashab al-Furud) yang dijamin bahagian mereka.</li>
+          <li><strong class="text-yellow-800">"Harta sepencarian sebahagian daripada Faraid."</strong> — Salah. <a href="/harta-sepencarian" class="text-teal-700 underline">Harta sepencarian</a> ditolak dan diasingkan dahulu sebelum baki dibahagikan mengikut Faraid.</li>
+          <li><strong class="text-yellow-800">"Anak lelaki dapat dua kali ganda kerana lebih disayangi."</strong> — Salah. <a href="/faraid-anak-lelaki-dan-perempuan" class="text-teal-700 underline">Nisbah 2:1</a> adalah kerana anak lelaki memikul tanggungjawab nafkah keluarga.</li>
+          <li><strong class="text-yellow-800">"Pemberian semasa hidup tertakluk kepada Faraid."</strong> — Salah. Hibah yang sempurna (telah berpindah milik) semasa hidup bukan sebahagian harta pusaka.</li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Senario Faraid Mengikut Keadaan</h2>
+      <p>Ketahui pembahagian khusus mengikut siapa yang meninggal dunia dan waris yang terlibat:</p>
       <ul>
-        <li><strong>Mahkamah Syariah</strong> — Mengeluarkan Sijil Faraid.</li>
-        <li><strong>Amanah Raya Berhad (ARB)</strong> — Mentadbir harta pusaka kecil (bawah RM 2 juta).</li>
-        <li><strong>Mahkamah Tinggi</strong> — Untuk harta pusaka besar atau melibatkan hartanah.</li>
+        <li><a href="/faraid-suami-meninggal" class="text-teal-700 underline">Faraid Suami Meninggal</a> — bahagian isteri, anak, dan ibu bapa apabila suami meninggal.</li>
+        <li><a href="/faraid-isteri-meninggal" class="text-teal-700 underline">Faraid Isteri Meninggal</a> — bahagian suami (1/2 atau 1/4), anak, dan ibu bapa.</li>
+        <li><a href="/faraid-ayah-meninggal" class="text-teal-700 underline">Faraid Ayah Meninggal</a> — pengiraan Faraid apabila si mati seorang ayah.</li>
+        <li><a href="/faraid-ibu-meninggal" class="text-teal-700 underline">Faraid Ibu Meninggal</a> — pengiraan Faraid apabila si mati seorang ibu.</li>
+        <li><a href="/faraid-anak-lelaki-dan-perempuan" class="text-teal-700 underline">Faraid Anak Lelaki dan Perempuan</a> — penjelasan nisbah 2:1.</li>
+        <li><a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">Jadual Pembahagian Faraid</a> — carta pecahan penuh untuk semua waris.</li>
       </ul>
     </div>
 
     <div class="max-w-4xl mx-auto">
       <FaraidGuide />
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-teal-800">Soalan Lazim (FAQ)</h2>
+
+      <h3 class="text-lg font-bold text-warm-800">Apakah maksud Faraid?</h3>
+      <p>Faraid (فرائض) berasal daripada perkataan Arab faridhah yang bermaksud bahagian yang telah ditetapkan. Ia merujuk kepada ilmu dan hukum pembahagian harta pusaka orang Islam mengikut kadar yang ditetapkan oleh Allah SWT dalam Al-Quran, terutamanya Surah An-Nisa'.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Apakah hukum Faraid dalam Islam?</h3>
+      <p>Mempelajari dan melaksanakan Faraid adalah fardu kifayah, iaitu kewajipan yang mesti ditunaikan oleh sekurang-kurangnya sebahagian anggota masyarakat Islam. Pembahagian harta pusaka mengikut Faraid adalah wajib bagi umat Islam berdasarkan dalil qat'i dalam Al-Quran dan Sunnah.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Adakah Faraid wajib dilaksanakan?</h3>
+      <p>Ya. Di Malaysia, Faraid adalah kaedah lalai (default) yang wajib bagi pembahagian harta pusaka orang Islam. Bahagian setiap waris adalah hak tetap yang tidak boleh dinafikan, kecuali waris bersetuju secara sukarela melalui mekanisme sah seperti takharuj.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Siapakah waris dalam Faraid?</h3>
+      <p>Waris utama termasuk pasangan (suami atau isteri), anak-anak (lelaki dan perempuan), serta ibu dan bapa si mati. Waris lain seperti datuk, nenek, dan adik-beradik hanya mewarisi apabila waris yang lebih hampir tiada.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Bolehkah seseorang mengelak atau menolak Faraid?</h3>
+      <p>Pembahagian Faraid tidak boleh diketepikan sepenuhnya. Namun, sebahagian harta boleh diuruskan semasa hidup melalui hibah (pemberian) atau wasiat (maksimum 1/3 untuk bukan waris). Selepas kematian, waris juga boleh bersetuju menyusun semula bahagian melalui takharuj.</p>
     </div>
 
     <div class="text-center text-sm text-warm-500 space-x-4">
@@ -65,7 +178,15 @@ const jsonLd = {
       <span>&middot;</span>
       <a href="/harta-sepencarian" class="text-teal-600 hover:underline">Harta Sepencarian</a>
       <span>&middot;</span>
-      <a href="/pembahagian-harta-mengikut-faraid" class="text-teal-600 hover:underline">Pembahagian Harta</a>
+      <a href="/faraid-suami-meninggal" class="text-teal-600 hover:underline">Faraid Suami Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-isteri-meninggal" class="text-teal-600 hover:underline">Faraid Isteri Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-ayah-meninggal" class="text-teal-600 hover:underline">Faraid Ayah Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-ibu-meninggal" class="text-teal-600 hover:underline">Faraid Ibu Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-anak-lelaki-dan-perempuan" class="text-teal-600 hover:underline">Faraid Anak Lelaki & Perempuan</a>
     </div>
   </article>
 </BaseLayout>

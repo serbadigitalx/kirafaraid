@@ -1,10 +1,12 @@
 ---
+import { ORGANIZATION_SCHEMA, WEBSITE_SCHEMA } from '../lib/seo';
+
 interface Props {
   title: string;
   description: string;
   canonical?: string;
   ogImage?: string;
-  jsonLd?: Record<string, any>;
+  jsonLd?: Record<string, any> | any[];
 }
 
 const { title, description, canonical, ogImage, jsonLd } = Astro.props;
@@ -30,6 +32,10 @@ const ogImageURL = ogImage || new URL('/og-image.png', Astro.site).toString();
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageURL} />
+
+<!-- Site-wide entity schema -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(ORGANIZATION_SCHEMA)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(WEBSITE_SCHEMA)} />
 
 {jsonLd && (
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

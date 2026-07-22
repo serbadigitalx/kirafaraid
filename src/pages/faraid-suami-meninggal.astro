@@ -1,30 +1,82 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Faraid Suami Meninggal - Pembahagian Harta Pusaka Jika Suami Meninggal Dunia",
-  "description": "Ketahui pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri, anak-anak, dan ibu bapa mengikut hukum Islam.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = [
+  buildArticle({
+    headline: "Faraid Suami Meninggal - Pembahagian Harta Pusaka Jika Suami Meninggal Dunia",
+    description: "Panduan lengkap pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri (1/8 atau 1/4), anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia, lengkap dengan jadual, contoh pengiraan RM, dalil, dan soalan lazim.",
+    path: "/faraid-suami-meninggal/",
+    datePublished: "2026-02-25",
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Berapakah bahagian isteri apabila suami meninggal dunia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Isteri mendapat 1/8 (satu perlapan) daripada harta bersih jika si mati mempunyai anak, dan 1/4 (satu perempat) jika tiada anak langsung. Jika terdapat lebih daripada seorang isteri, bahagian ini dikongsi sama rata antara mereka."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Adakah isteri mewarisi semua harta jika suami tiada anak?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tidak. Walaupun si mati tiada anak, isteri hanya mendapat 1/4. Baki harta diagihkan kepada waris lain yang layak seperti ibu, bapa, atau adik-beradik si mati mengikut susunan keutamaan Faraid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bagaimana pembahagian jika suami mempunyai dua atau lebih isteri?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bahagian tetap isteri (1/8 atau 1/4) tidak didarabkan dengan bilangan isteri. Sebaliknya, satu bahagian tetap tersebut dikongsi sama rata antara semua isteri (maksimum empat orang)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Adakah harta sepencarian dan hutang ditolak sebelum Faraid dikira?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ya. Sebelum Faraid dikira, tuntutan harta sepencarian pasangan, kos pengurusan jenazah, hutang si mati, dan wasiat (maksimum 1/3) hendaklah diselesaikan terlebih dahulu. Faraid hanya dikira ke atas harta bersih yang tinggal selepas potongan tersebut."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bolehkah isteri dinafikan bahagian Faraidnya?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tidak. Bahagian isteri adalah hak tetap (fardu) yang ditetapkan oleh al-Quran dan tidak boleh dinafikan atau dikurangkan oleh mana-mana pihak, melainkan melalui mekanisme sah seperti takharuj, iaitu pelepasan hak secara sukarela dengan persetujuan waris."
+        }
+      }
+    ]
+  }
+];
 ---
 
 <BaseLayout
   title="Faraid Suami Meninggal - Pembahagian Harta Pusaka Mengikut Hukum Islam"
-  description="Ketahui pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri, anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia."
+  description="Ketahui pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri (1/8 atau 1/4), anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia. Lengkap dengan jadual, contoh pengiraan RM, dalil, dan soalan lazim."
   jsonLd={jsonLd}
 >
   <article class="max-w-4xl mx-auto space-y-12">
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Faraid Suami Meninggal Dunia</h1>
-      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan pembahagian harta pusaka mengikut hukum Faraid apabila si mati adalah seorang suami (lelaki).</p>
+      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Apabila seorang suami meninggal dunia, isteri mendapat <strong>1/8</strong> jika ada anak atau <strong>1/4</strong> jika tiada anak, manakala anak lelaki mengambil baki (Asabah). Panduan lengkap pembahagian harta pusaka mengikut hukum Faraid Mazhab Syafi'i di Malaysia.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
-      <h2 class="text-2xl font-bold text-teal-800">Bahagian Isteri</h2>
+      <h2 class="text-2xl font-bold text-teal-800">Ringkasan Pembahagian</h2>
+      <p>Apabila suami (si mati lelaki) meninggal dunia, harta pusaka bersihnya dibahagikan mengikut Faraid selepas ditolak kos pengurusan jenazah, hutang, wasiat, dan tuntutan harta sepencarian. Waris utama yang biasanya layak menerima ialah <strong>isteri</strong>, <strong>anak-anak</strong>, serta <strong>ibu dan bapa</strong> si mati. Isteri dan ibu bapa mendapat bahagian tetap (fardu), manakala anak lelaki mengambil baki harta sebagai Asabah.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Bahagian Isteri</h2>
       <p>Apabila suami meninggal dunia, isteri (atau isteri-isteri) berhak mendapat bahagian tetap:</p>
       <ul>
         <li><strong>1/8 (satu perlapan)</strong> — jika si mati mempunyai anak (lelaki atau perempuan).</li>
@@ -39,6 +91,7 @@ const jsonLd = {
         <li><strong>Anak perempuan sahaja (2 orang ke atas)</strong> — 2/3 dikongsi sama rata.</li>
         <li><strong>Anak lelaki + anak perempuan</strong> — Baki dibahagi dengan nisbah 2:1 (anak lelaki dapat dua kali ganda anak perempuan).</li>
       </ul>
+      <p>Penerangan lanjut mengenai nisbah 2:1 boleh dibaca di <a href="/faraid-anak-lelaki-dan-perempuan" class="text-teal-700 underline">Faraid Anak Lelaki dan Perempuan</a>.</p>
 
       <h2 class="text-2xl font-bold text-teal-800 mt-8">Bahagian Ibu Bapa Si Mati</h2>
       <ul>
@@ -46,8 +99,40 @@ const jsonLd = {
         <li><strong>Ibu</strong> — 1/6 jika ada anak. 1/3 jika tiada anak.</li>
       </ul>
 
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Jadual Ringkas Pembahagian</h2>
+      <p>Jadual di bawah meringkaskan bahagian setiap waris utama apabila seorang suami meninggal dunia:</p>
+      <div class="overflow-x-auto not-prose mt-6">
+        <table class="w-full text-sm border-collapse border border-warm-200">
+          <thead>
+            <tr class="bg-teal-700 text-white">
+              <th class="border border-teal-600 px-4 py-3 text-left font-bold">Waris</th>
+              <th class="border border-teal-600 px-4 py-3 text-center font-bold">Bahagian</th>
+              <th class="border border-teal-600 px-4 py-3 text-left font-bold">Syarat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-teal-50"><td colspan="3" class="border border-warm-200 px-4 py-2 font-bold text-teal-800">Isteri</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/8</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/4</td><td class="border border-warm-200 px-4 py-2">Si mati tiada anak</td></tr>
+            <tr class="bg-teal-50"><td colspan="3" class="border border-warm-200 px-4 py-2 font-bold text-teal-800">Anak-anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Anak lelaki</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">Asabah</td><td class="border border-warm-200 px-4 py-2">Mengambil baki harta</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">1 anak perempuan (tiada anak lelaki)</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/2</td><td class="border border-warm-200 px-4 py-2">Seorang sahaja</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">2+ anak perempuan (tiada anak lelaki)</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">2/3</td><td class="border border-warm-200 px-4 py-2">Dikongsi sama rata</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Anak lelaki + anak perempuan</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">Asabah 2:1</td><td class="border border-warm-200 px-4 py-2">Lelaki 2x perempuan</td></tr>
+            <tr class="bg-teal-50"><td colspan="3" class="border border-warm-200 px-4 py-2 font-bold text-teal-800">Ibu Bapa Si Mati</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">Asabah</td><td class="border border-warm-200 px-4 py-2">Si mati tiada anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/3</td><td class="border border-warm-200 px-4 py-2">Si mati tiada anak</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-warm-500 mt-3">Nota: Datuk, nenek, dan adik-beradik hanya mewarisi apabila waris yang lebih hampir tiada. Lihat <a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">Jadual Pembahagian Faraid</a> untuk senarai penuh.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Contoh Pengiraan (RM)</h2>
+
       <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
-        <h3 class="font-bold text-teal-900 text-lg mb-2">Contoh Senario</h3>
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Contoh 1: Ada Anak Lelaki dan Perempuan</h3>
         <p class="text-sm text-warm-700 mb-2">Seorang suami meninggal dunia dengan harta bersih RM 240,000. Waris: 1 isteri, 1 anak lelaki, 1 anak perempuan, ibu masih hidup.</p>
         <ul class="text-sm text-warm-700 space-y-1 list-disc list-inside">
           <li>Isteri: 1/8 = RM 30,000</li>
@@ -55,6 +140,54 @@ const jsonLd = {
           <li>Baki (Asabah): RM 170,000 — Anak lelaki: RM 113,333, Anak perempuan: RM 56,667</li>
         </ul>
       </div>
+
+      <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Contoh 2: Tiada Anak</h3>
+        <p class="text-sm text-warm-700 mb-2">Suami meninggal dunia tanpa anak dengan harta bersih RM 240,000. Waris: 1 isteri, ibu dan bapa masih hidup.</p>
+        <ul class="text-sm text-warm-700 space-y-1 list-disc list-inside">
+          <li>Isteri: 1/4 = RM 60,000</li>
+          <li>Ibu: 1/3 = RM 80,000</li>
+          <li>Bapa: Asabah (baki) = RM 100,000</li>
+        </ul>
+      </div>
+
+      <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Contoh 3: Kes Aul (Bahagian Melebihi 1)</h3>
+        <p class="text-sm text-warm-700 mb-2">Suami meninggal dengan harta bersih RM 270,000. Waris: 1 isteri, 2 anak perempuan, ibu dan bapa masih hidup. Jumlah bahagian tetap melebihi 1, jadi semua bahagian diselaraskan (Aul) daripada asas 24 kepada 27.</p>
+        <ul class="text-sm text-warm-700 space-y-1 list-disc list-inside">
+          <li>Isteri: 1/8 &rarr; 3/27 = RM 30,000</li>
+          <li>2 Anak perempuan: 2/3 &rarr; 16/27 = RM 160,000 (RM 80,000 setiap seorang)</li>
+          <li>Ibu: 1/6 &rarr; 4/27 = RM 40,000</li>
+          <li>Bapa: 1/6 &rarr; 4/27 = RM 40,000</li>
+        </ul>
+        <p class="text-sm text-warm-700 mt-2">Penerangan penuh mengenai Aul ada di <a href="/panduan-faraid" class="text-teal-700 underline">Panduan Faraid</a>.</p>
+      </div>
+
+      <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Contoh 4: Selepas Tolak Harta Sepencarian</h3>
+        <p class="text-sm text-warm-700 mb-2">Jumlah harta perkahwinan RM 400,000. Isteri menuntut 1/2 sebagai harta sepencarian sebelum Faraid dikira.</p>
+        <ul class="text-sm text-warm-700 space-y-1 list-disc list-inside">
+          <li>Harta sepencarian isteri (1/2): RM 200,000 — diambil dahulu, bukan sebahagian pusaka.</li>
+          <li>Baki harta pusaka untuk Faraid: RM 200,000 — barulah dibahagi antara waris.</li>
+        </ul>
+        <p class="text-sm text-warm-700 mt-2">Lihat <a href="/harta-sepencarian" class="text-teal-700 underline">Harta Sepencarian</a> untuk penjelasan tuntutan ini.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Dalil dan Rujukan</h2>
+      <p>Bahagian isteri apabila suami meninggal dunia dinyatakan dalam Surah An-Nisa' ayat 12:</p>
+      <blockquote class="border-l-4 border-teal-500 bg-teal-50 p-4 text-teal-900 italic">
+        "...Dan bagi mereka (isteri-isteri) pula seperempat dari harta yang kamu tinggalkan, jika kamu tidak mempunyai anak. Tetapi jika kamu mempunyai anak maka bahagian mereka ialah seperlapan dari harta yang kamu tinggalkan, sesudah diselesaikan wasiat yang kamu buat dan sesudah dibayarkan hutang kamu."
+      </blockquote>
+      <p>Manakala bahagian anak-anak (nisbah 2:1) dan ibu bapa (1/6) dinyatakan dalam Surah An-Nisa' ayat 11:</p>
+      <blockquote class="border-l-4 border-teal-500 bg-teal-50 p-4 text-teal-900 italic">
+        "Allah perintahkan kamu mengenai (pembahagian harta pusaka untuk) anak-anak kamu, iaitu bahagian seorang anak lelaki menyamai bahagian dua orang anak perempuan."
+      </blockquote>
+      <p>Pengiraan di laman ini mengikut <strong>Mazhab Syafi'i</strong> sebagaimana yang diamalkan di Malaysia. Untuk rujukan rasmi dan pengesahan pembahagian pusaka, sila rujuk:</p>
+      <ul>
+        <li><a href="https://www.islam.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Jabatan Kemajuan Islam Malaysia (JAKIM)</a></li>
+        <li><a href="https://www.amanahraya.com.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Amanah Raya Berhad (ARB)</a> — pentadbiran harta pusaka</li>
+        <li><a href="https://www.jksm.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Jabatan Kehakiman Syariah Malaysia (JKSM)</a> — sijil Faraid Mahkamah Syariah</li>
+      </ul>
     </div>
 
     <div class="space-y-4">
@@ -63,10 +196,35 @@ const jsonLd = {
       <Calculator client:visible embedded />
     </div>
 
+    <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-teal-800">Soalan Lazim (FAQ)</h2>
+
+      <h3 class="text-lg font-bold text-warm-800">Berapakah bahagian isteri apabila suami meninggal dunia?</h3>
+      <p>Isteri mendapat 1/8 (satu perlapan) daripada harta bersih jika si mati mempunyai anak, dan 1/4 (satu perempat) jika tiada anak langsung. Jika terdapat lebih daripada seorang isteri, bahagian ini dikongsi sama rata antara mereka.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Adakah isteri mewarisi semua harta jika suami tiada anak?</h3>
+      <p>Tidak. Walaupun si mati tiada anak, isteri hanya mendapat 1/4. Baki harta diagihkan kepada waris lain yang layak seperti ibu, bapa, atau adik-beradik si mati mengikut susunan keutamaan Faraid.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Bagaimana pembahagian jika suami mempunyai dua atau lebih isteri?</h3>
+      <p>Bahagian tetap isteri (1/8 atau 1/4) tidak didarabkan dengan bilangan isteri. Sebaliknya, satu bahagian tetap tersebut dikongsi sama rata antara semua isteri (maksimum empat orang).</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Adakah harta sepencarian dan hutang ditolak sebelum Faraid dikira?</h3>
+      <p>Ya. Sebelum Faraid dikira, tuntutan harta sepencarian pasangan, kos pengurusan jenazah, hutang si mati, dan wasiat (maksimum 1/3) hendaklah diselesaikan terlebih dahulu. Faraid hanya dikira ke atas harta bersih yang tinggal selepas potongan tersebut.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Bolehkah isteri dinafikan bahagian Faraidnya?</h3>
+      <p>Tidak. Bahagian isteri adalah hak tetap (fardu) yang ditetapkan oleh al-Quran dan tidak boleh dinafikan atau dikurangkan oleh mana-mana pihak, melainkan melalui mekanisme sah seperti takharuj, iaitu pelepasan hak secara sukarela dengan persetujuan waris.</p>
+    </div>
+
     <div class="text-center text-sm text-warm-500 space-x-4">
       <a href="/" class="text-teal-600 hover:underline">Kalkulator Faraid</a>
       <span>&middot;</span>
       <a href="/panduan-faraid" class="text-teal-600 hover:underline">Panduan Faraid Lengkap</a>
+      <span>&middot;</span>
+      <a href="/apa-itu-faraid" class="text-teal-600 hover:underline">Apa Itu Faraid</a>
+      <span>&middot;</span>
+      <a href="/harta-sepencarian" class="text-teal-600 hover:underline">Harta Sepencarian</a>
+      <span>&middot;</span>
+      <a href="/faraid-isteri-meninggal" class="text-teal-600 hover:underline">Faraid Isteri Meninggal</a>
       <span>&middot;</span>
       <a href="/faraid-ibu-meninggal" class="text-teal-600 hover:underline">Faraid Ibu Meninggal</a>
       <span>&middot;</span>

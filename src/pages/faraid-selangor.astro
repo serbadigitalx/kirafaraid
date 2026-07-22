@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Kalkulator Faraid Selangor - Pembahagian Harta Pusaka Islam Selangor",
-  "description": "Kalkulator Faraid untuk penduduk Selangor. Pengiraan pembahagian harta pusaka mengikut hukum Faraid Islam yang ditadbir oleh MAIS (Majlis Agama Islam Selangor).",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = buildArticle({
+  headline: "Kalkulator Faraid Selangor - Pembahagian Harta Pusaka Islam Selangor",
+  description: "Kalkulator Faraid untuk penduduk Selangor. Pengiraan pembahagian harta pusaka mengikut hukum Faraid Islam yang ditadbir oleh MAIS (Majlis Agama Islam Selangor).",
+  path: "/faraid-selangor/",
+  datePublished: "2026-02-25",
+});
 ---
 
 <BaseLayout
@@ -21,11 +21,12 @@ const jsonLd = {
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Kalkulator Faraid Selangor</h1>
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Pengiraan pembahagian harta pusaka Islam untuk penduduk negeri Selangor mengikut Mazhab Syafi'i.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
       <h2 class="text-2xl font-bold text-teal-800">Faraid di Selangor</h2>
-      <p>Hukum Faraid yang digunakan di Selangor adalah sama dengan seluruh Malaysia — berdasarkan <strong>Mazhab Syafi'i</strong>. Pengiraan dan pecahan bahagian waris adalah konsisten di seluruh negara kerana ia bersumberkan Al-Quran dan Hadis.</p>
+      <p>Hukum Faraid yang digunakan di Selangor adalah sama dengan seluruh Malaysia — berdasarkan <strong>Mazhab Syafi'i</strong>. Pengiraan dan pecahan bahagian waris adalah konsisten di seluruh negara kerana ia bersumberkan Al-Quran dan Hadis. Untuk asas hukum, baca <a href="/apa-itu-faraid" class="text-teal-700 underline">apa itu Faraid</a>, dan lihat <a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">jadual pembahagian Faraid</a> untuk pecahan setiap waris.</p>
 
       <h2 class="text-2xl font-bold text-teal-800 mt-8">Institusi Berkaitan di Selangor</h2>
       <ul>

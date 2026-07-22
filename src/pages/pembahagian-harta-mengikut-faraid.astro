@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam",
-  "description": "Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = buildArticle({
+  headline: "Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam",
+  description: "Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil.",
+  path: "/pembahagian-harta-mengikut-faraid/",
+  datePublished: "2026-02-25",
+});
 ---
 
 <BaseLayout
@@ -21,6 +21,7 @@ const jsonLd = {
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Pembahagian Harta Mengikut Faraid</h1>
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan lengkap cara pembahagian harta pusaka mengikut hukum Faraid Islam yang diamalkan di Malaysia.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">

@@ -1,34 +1,86 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import { buildArticle } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap",
-  "description": "Jadual pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam. Carta faraid untuk suami, isteri, anak, dan ibu bapa.",
-  "inLanguage": "ms",
-  "publisher": { "@type": "Organization", "name": "KiraFaraid", "url": "https://www.kirafaraid.my" }
-};
+const jsonLd = [
+  buildArticle({
+    headline: "Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap",
+    description: "Jadual (carta) pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i. Carta pecahan Faraid untuk suami, isteri, anak, dan ibu bapa.",
+    path: "/jadual-pembahagian-faraid/",
+    datePublished: "2026-02-25",
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Apakah jadual pembahagian Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jadual pembahagian Faraid (carta Faraid) ialah senarai ringkas yang menunjukkan pecahan bahagian setiap waris yang layak mengikut hukum Islam. Ia meringkaskan bahagian tetap (Ashab al-Furud) seperti 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6, serta baki (Asabah) untuk waris seperti anak lelaki dan bapa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah pecahan tetap dalam Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Terdapat enam pecahan tetap yang disebut dalam Al-Quran, iaitu 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6. Setiap pecahan diberikan kepada waris tertentu mengikut syarat, contohnya isteri mendapat 1/8 jika ada anak dan 1/4 jika tiada anak."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bagaimana cara membaca carta pecahan Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kenal pasti hubungan waris dengan si mati (contoh: suami, isteri, anak, ibu, bapa), semak sama ada si mati mempunyai anak atau tidak, kemudian rujuk lajur Bahagian dan Syarat dalam jadual. Waris berbahagian tetap dibayar dahulu, dan baki diberikan kepada waris Asabah."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Berapakah bahagian suami dan isteri dalam jadual Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Suami mendapat 1/2 jika si mati (isteri) tiada anak, dan 1/4 jika ada anak. Isteri mendapat 1/4 jika si mati (suami) tiada anak, dan 1/8 jika ada anak. Jika terdapat lebih daripada seorang isteri, bahagian tersebut dikongsi sama rata."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah maksud Asabah dalam jadual Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Asabah ialah waris yang mengambil baki harta selepas waris berbahagian tetap dibayar. Contohnya anak lelaki, atau bapa apabila si mati tiada anak lelaki. Jika terdapat baki tetapi tiada waris Asabah, baki dikembalikan (Radd) atau diserahkan kepada Baitulmal mengikut keadaan."
+        }
+      }
+    ]
+  }
+];
 ---
 
 <BaseLayout
   title="Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap"
-  description="Jadual pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam. Carta faraid untuk suami, isteri, anak, dan ibu bapa."
+  description="Jadual dan carta pecahan Faraid lengkap menunjukkan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i. Rujukan pecahan Faraid untuk suami, isteri, anak, dan ibu bapa."
   jsonLd={jsonLd}
 >
   <article class="max-w-4xl mx-auto space-y-12">
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Jadual Pembahagian Faraid</h1>
-      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Carta pecahan Faraid lengkap untuk setiap waris mengikut hukum Islam Mazhab Syafi'i.</p>
+      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Jadual (carta) pecahan Faraid lengkap yang menyenaraikan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i di Malaysia.</p>
+      <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 space-y-8">
-      <h2 class="text-2xl font-bold text-teal-800">Pecahan Bahagian Tetap (Ashab al-Furud)</h2>
-      <p class="text-warm-600 text-sm">Bahagian yang telah ditetapkan secara qat'i (pasti) dalam Al-Quran. Pecahan yang wujud adalah: 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6.</p>
+      <div>
+        <h2 class="text-2xl font-bold text-teal-800">Jadual Pembahagian Mengikut Waris</h2>
+        <p class="text-warm-600 text-sm mt-2">Jadual pembahagian Faraid di bawah menunjukkan pecahan bahagian setiap waris utama beserta syaratnya. Bahagian tetap (Ashab al-Furud) yang ditetapkan secara qat'i dalam Al-Quran ialah 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6.</p>
+      </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-sm border-collapse border border-warm-200">
+          <caption class="sr-only">Jadual pembahagian Faraid mengikut waris, bahagian, dan syarat</caption>
           <thead>
             <tr class="bg-teal-700 text-white">
               <th class="border border-teal-600 px-4 py-3 text-left font-bold">Waris</th>
@@ -41,14 +93,14 @@ const jsonLd = {
             <tr><td class="border border-warm-200 px-4 py-2">Suami</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/2</td><td class="border border-warm-200 px-4 py-2">Si mati tiada anak</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Suami</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/4</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/4</td><td class="border border-warm-200 px-4 py-2">Si mati tiada anak</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/8</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/8</td><td class="border border-warm-200 px-4 py-2">Si mati ada anak (dikongsi jika &gt; 1 isteri)</td></tr>
 
             <tr class="bg-teal-50"><td colspan="3" class="border border-warm-200 px-4 py-2 font-bold text-teal-800">Ibu Bapa</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6</td><td class="border border-warm-200 px-4 py-2">Ada anak / cucu lelaki</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6 + Baki</td><td class="border border-warm-200 px-4 py-2">Ada anak perempuan sahaja</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">Baki (Asabah)</td><td class="border border-warm-200 px-4 py-2">Tiada anak</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6</td><td class="border border-warm-200 px-4 py-2">Ada anak / 2+ adik-beradik</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/3</td><td class="border border-warm-200 px-4 py-2">Tiada anak & kurang 2 adik-beradik</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/3</td><td class="border border-warm-200 px-4 py-2">Tiada anak &amp; kurang 2 adik-beradik</td></tr>
 
             <tr class="bg-teal-50"><td colspan="3" class="border border-warm-200 px-4 py-2 font-bold text-teal-800">Anak-anak</td></tr>
             <tr><td class="border border-warm-200 px-4 py-2">Anak Perempuan (1)</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/2</td><td class="border border-warm-200 px-4 py-2">Tiada anak lelaki</td></tr>
@@ -57,6 +109,59 @@ const jsonLd = {
             <tr><td class="border border-warm-200 px-4 py-2">Anak Lelaki + Perempuan</td><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">Baki (2:1)</td><td class="border border-warm-200 px-4 py-2">Lelaki 2x perempuan</td></tr>
           </tbody>
         </table>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-teal-800">Carta Pecahan Mengikut Bahagian (Furud)</h2>
+        <p class="text-warm-600 text-sm mt-2">Carta pecahan Faraid ini disusun mengikut enam pecahan tetap dalam Al-Quran, menunjukkan waris yang layak menerima setiap pecahan.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-warm-200">
+          <caption class="sr-only">Carta pecahan Faraid mengikut bahagian tetap dan waris yang layak</caption>
+          <thead>
+            <tr class="bg-teal-700 text-white">
+              <th class="border border-teal-600 px-4 py-3 text-center font-bold">Pecahan</th>
+              <th class="border border-teal-600 px-4 py-3 text-left font-bold">Waris Yang Layak</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/2</td><td class="border border-warm-200 px-4 py-2">Suami (tiada anak); 1 anak perempuan (tiada anak lelaki)</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/4</td><td class="border border-warm-200 px-4 py-2">Suami (ada anak); isteri (tiada anak)</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/8</td><td class="border border-warm-200 px-4 py-2">Isteri (ada anak)</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">2/3</td><td class="border border-warm-200 px-4 py-2">2 atau lebih anak perempuan (tiada anak lelaki)</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/3</td><td class="border border-warm-200 px-4 py-2">Ibu (tiada anak &amp; kurang 2 adik-beradik)</td></tr>
+            <tr><td class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-700">1/6</td><td class="border border-warm-200 px-4 py-2">Bapa &amp; ibu (ada anak); nenek; cucu perempuan dalam keadaan tertentu</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-teal-800">Cara Membaca Jadual Ini</h2>
+        <ol class="mt-3 space-y-2 text-warm-700 text-sm list-decimal list-inside">
+          <li>Kenal pasti hubungan setiap waris dengan si mati (suami, isteri, anak, ibu, atau bapa).</li>
+          <li>Semak sama ada si mati mempunyai <strong>anak</strong> atau tidak — ini menentukan banyak pecahan.</li>
+          <li>Rujuk lajur <strong>Bahagian</strong> dan <strong>Syarat</strong> untuk pecahan yang tepat.</li>
+          <li>Waris berbahagian tetap dibayar dahulu; <strong>baki (Asabah)</strong> diberikan kepada anak lelaki atau bapa.</li>
+        </ol>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-teal-800">Bahagian Tetap (Ashab al-Furud) vs Baki (Asabah)</h2>
+        <p class="text-warm-700 text-sm mt-2">Waris dalam Faraid terbahagi kepada dua kategori utama:</p>
+        <ul class="mt-2 space-y-2 text-warm-700 text-sm list-disc list-inside">
+          <li><strong>Ashab al-Furud</strong> — waris yang mendapat pecahan tetap yang ditetapkan Al-Quran (contoh: isteri 1/8, ibu 1/6).</li>
+          <li><strong>Asabah</strong> — waris yang mengambil <strong>baki</strong> harta selepas bahagian tetap dibayar (contoh: anak lelaki, atau bapa jika tiada anak lelaki).</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-teal-800">Aul dan Radd</h2>
+        <p class="text-warm-700 text-sm mt-2">Dua keadaan khas boleh berlaku apabila jumlah pecahan tidak tepat menyamai satu:</p>
+        <ul class="mt-2 space-y-2 text-warm-700 text-sm list-disc list-inside">
+          <li><strong>Aul</strong> — apabila jumlah pecahan <strong>melebihi 1</strong>, semua bahagian diselaraskan (dikurangkan secara berkadar). Lihat contoh di <a href="/faraid-suami-meninggal" class="text-teal-700 underline">Faraid Suami Meninggal</a>.</li>
+          <li><strong>Radd</strong> — apabila ada <strong>baki</strong> tetapi tiada waris Asabah, baki dikembalikan kepada waris berbahagian tetap (atau diserahkan kepada Baitulmal mengikut keadaan). Penerangan penuh di <a href="/panduan-faraid" class="text-teal-700 underline">Panduan Faraid</a>.</li>
+        </ul>
       </div>
 
       <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
@@ -71,6 +176,25 @@ const jsonLd = {
       <Calculator client:visible embedded />
     </div>
 
+    <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-teal-800">Soalan Lazim (FAQ)</h2>
+
+      <h3 class="text-lg font-bold text-warm-800">Apakah jadual pembahagian Faraid?</h3>
+      <p>Jadual pembahagian Faraid (carta Faraid) ialah senarai ringkas yang menunjukkan pecahan bahagian setiap waris yang layak mengikut hukum Islam. Ia meringkaskan bahagian tetap (Ashab al-Furud) seperti 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6, serta baki (Asabah) untuk waris seperti anak lelaki dan bapa.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Apakah pecahan tetap dalam Faraid?</h3>
+      <p>Terdapat enam pecahan tetap yang disebut dalam Al-Quran, iaitu 1/2, 1/4, 1/8, 2/3, 1/3, dan 1/6. Setiap pecahan diberikan kepada waris tertentu mengikut syarat, contohnya isteri mendapat 1/8 jika ada anak dan 1/4 jika tiada anak.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Bagaimana cara membaca carta pecahan Faraid?</h3>
+      <p>Kenal pasti hubungan waris dengan si mati (contoh: suami, isteri, anak, ibu, bapa), semak sama ada si mati mempunyai anak atau tidak, kemudian rujuk lajur Bahagian dan Syarat dalam jadual. Waris berbahagian tetap dibayar dahulu, dan baki diberikan kepada waris Asabah.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Berapakah bahagian suami dan isteri dalam jadual Faraid?</h3>
+      <p>Suami mendapat 1/2 jika si mati (isteri) tiada anak, dan 1/4 jika ada anak. Isteri mendapat 1/4 jika si mati (suami) tiada anak, dan 1/8 jika ada anak. Jika terdapat lebih daripada seorang isteri, bahagian tersebut dikongsi sama rata.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Apakah maksud Asabah dalam jadual Faraid?</h3>
+      <p>Asabah ialah waris yang mengambil baki harta selepas waris berbahagian tetap dibayar. Contohnya anak lelaki, atau bapa apabila si mati tiada anak lelaki. Jika terdapat baki tetapi tiada waris Asabah, baki dikembalikan (Radd) atau diserahkan kepada Baitulmal mengikut keadaan.</p>
+    </div>
+
     <div class="text-center text-sm text-warm-500 space-x-4">
       <a href="/" class="text-teal-600 hover:underline">Kalkulator Faraid</a>
       <span>&middot;</span>
@@ -80,7 +204,13 @@ const jsonLd = {
       <span>&middot;</span>
       <a href="/harta-sepencarian" class="text-teal-600 hover:underline">Harta Sepencarian</a>
       <span>&middot;</span>
-      <a href="/pembahagian-harta-mengikut-faraid" class="text-teal-600 hover:underline">Pembahagian Harta</a>
+      <a href="/faraid-suami-meninggal" class="text-teal-600 hover:underline">Faraid Suami Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-isteri-meninggal" class="text-teal-600 hover:underline">Faraid Isteri Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-ayah-meninggal" class="text-teal-600 hover:underline">Faraid Ayah Meninggal</a>
+      <span>&middot;</span>
+      <a href="/faraid-ibu-meninggal" class="text-teal-600 hover:underline">Faraid Ibu Meninggal</a>
       <span>&middot;</span>
       <a href="/faraid-anak-lelaki-dan-perempuan" class="text-teal-600 hover:underline">Faraid Anak Lelaki & Perempuan</a>
     </div>
