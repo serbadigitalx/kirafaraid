@@ -4,82 +4,231 @@ import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import { buildArticle } from '../lib/seo';
 
-const jsonLd = buildArticle({
-  headline: "Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam",
-  description: "Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil.",
-  path: "/pembahagian-harta-mengikut-faraid/",
-  datePublished: "2026-02-25",
-});
+const jsonLd = [
+  buildArticle({
+    headline: "Pembahagian Harta Pusaka: Panduan Proses & Pentadbiran Faraid di Malaysia",
+    description: "Panduan langkah demi langkah pembahagian harta pusaka Islam di Malaysia — inventori harta, selesai hutang, harta sepencarian, wasiat, kenal pasti waris, Sijil Faraid, dan agensi rasmi (Mahkamah Syariah, JKPTG, Amanah Raya).",
+    path: "/pembahagian-harta-mengikut-faraid/",
+    datePublished: "2026-02-25",
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Berapa lama proses pembahagian harta pusaka mengambil masa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tempoh bergantung pada jenis dan nilai harta serta kelengkapan dokumen dan persetujuan waris. Kes pusaka kecil yang lengkap di Unit Pembahagian Pusaka Kecil (JKPTG) boleh selesai dalam beberapa bulan, manakala pusaka besar melalui Mahkamah Tinggi atau kes yang dipertikaikan boleh mengambil masa lebih setahun. Mengumpul inventori harta dan Sijil Faraid lebih awal mempercepat proses."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah beza pusaka kecil, pusaka ringkas, dan pusaka besar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pusaka kecil ialah harta pusaka yang mengandungi harta tak alih (seperti tanah atau rumah) dan biasanya bernilai bawah RM 2 juta — diuruskan oleh Unit Pembahagian Pusaka Kecil (JKPTG). Pusaka ringkas melibatkan harta alih sahaja (wang, saham, kenderaan) tanpa harta tak alih — boleh diuruskan oleh Amanah Raya Berhad. Pusaka besar bernilai melebihi RM 2 juta atau melibatkan wasiat — diuruskan oleh Mahkamah Tinggi Sivil melalui geran probet atau surat kuasa mentadbir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah itu Sijil Faraid dan di mana untuk memohon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sijil Faraid ialah dokumen yang dikeluarkan oleh Mahkamah Syariah yang mengesahkan siapakah waris yang sah dan berapakah bahagian setiap seorang mengikut hukum syarak. Ia bukan dokumen pemindahan harta, tetapi menjadi rujukan rasmi bagi agensi pentadbiran pusaka (JKPTG, Amanah Raya, atau Mahkamah Tinggi) untuk mengagihkan harta kepada waris."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Perlukah waris melantik peguam untuk pembahagian pusaka?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tidak semestinya. Kes pusaka kecil di JKPTG dan permohonan di Amanah Raya boleh diuruskan sendiri oleh waris tanpa peguam. Namun, khidmat Peguam Syarie atau peguam sivil digalakkan bagi kes yang rumit, dipertikaikan, melibatkan wasiat, tuntutan harta sepencarian, atau pusaka besar di Mahkamah Tinggi."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bolehkah waris mengagihkan harta pusaka tanpa Sijil Faraid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Secara amalannya tidak. Agensi seperti bank, JKPTG, dan Amanah Raya memerlukan penetapan bahagian waris yang sah sebelum harta boleh dipindah milik. Sijil Faraid (atau perintah pembahagian daripada mahkamah) menjadi asas rasmi pembahagian. Mengagihkan harta tanpa penetapan rasmi berisiko menafikan hak waris dan menimbulkan pertikaian di kemudian hari."
+        }
+      }
+    ]
+  }
+];
 ---
 
 <BaseLayout
-  title="Pembahagian Harta Mengikut Faraid - Panduan Lengkap Harta Pusaka Islam"
-  description="Panduan lengkap pembahagian harta mengikut Faraid Islam di Malaysia. Ketahui cara pengiraan, bahagian setiap waris, dan langkah-langkah yang perlu diambil."
+  title="Pembahagian Harta Pusaka: Panduan Proses & Pentadbiran Faraid di Malaysia"
+  description="Panduan langkah demi langkah pembahagian harta pusaka Islam di Malaysia — inventori harta, selesai hutang, harta sepencarian, wasiat, kenal pasti waris, Sijil Faraid, dan agensi rasmi (Mahkamah Syariah, JKPTG, Amanah Raya)."
   jsonLd={jsonLd}
 >
   <article class="max-w-4xl mx-auto space-y-12">
     <header class="text-center space-y-4">
       <h1 class="text-4xl font-bold text-warm-800">Pembahagian Harta Mengikut Faraid</h1>
-      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan lengkap cara pembahagian harta pusaka mengikut hukum Faraid Islam yang diamalkan di Malaysia.</p>
+      <p class="text-lg text-warm-600 max-w-2xl mx-auto">Panduan proses dan pentadbiran pembahagian harta pusaka Islam di Malaysia — daripada mengumpul inventori harta sehingga mengagihkan bahagian kepada waris mengikut hukum Faraid.</p>
       <ArticleMeta datePublished="2026-02-25" />
     </header>
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
-      <h2 class="text-2xl font-bold text-teal-800">Apa Itu Pembahagian Harta Pusaka?</h2>
-      <p>Pembahagian harta pusaka adalah proses mengagihkan harta si mati kepada waris yang berhak. Bagi orang Islam di Malaysia, pembahagian ini lazimnya dilakukan mengikut <strong>hukum Faraid</strong> berdasarkan Mazhab Syafi'i, kecuali semua waris bersetuju menggunakan kaedah lain (Takharuj/Muafakat).</p>
+      <h2 class="text-2xl font-bold text-teal-800">Pembahagian Harta Pusaka Bukan Sekadar Pengiraan</h2>
+      <p>Ramai menyangka pembahagian harta pusaka bermula dan berakhir dengan mengira bahagian setiap waris. Sebenarnya, <strong>Faraid ialah peraturan pengagihan di hujung satu rantaian pentadbiran yang lebih panjang</strong>. Sebelum sebarang bahagian boleh diberikan, harta si mati perlu dikenal pasti, hutang diselesaikan, hak pasangan (harta sepencarian) diasingkan, wasiat dilaksanakan, dan waris disahkan secara rasmi.</p>
+      <p>Bagi orang Islam di Malaysia, pembahagian ini dilakukan mengikut <strong>hukum Faraid berdasarkan Mazhab Syafi'i</strong>, kecuali semua waris bersetuju menyusun semula bahagian melalui kaedah sah seperti <em>takharuj</em> atau muafakat. Halaman ini menerangkan <strong>proses pentadbiran dari awal hingga akhir</strong>, termasuk agensi rasmi yang terlibat, supaya waris tahu apa yang perlu dilakukan secara praktikal.</p>
 
-      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah-langkah Pembahagian Harta Pusaka</h2>
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Aliran Proses Pembahagian Harta Pusaka</h2>
+      <p>Secara ringkas, inilah urutan penuh yang perlu dilalui oleh waris atau pentadbir pusaka:</p>
       <ol>
-        <li><strong>Tentukan harta kasar</strong> — Senaraikan semua aset termasuk hartanah, wang tunai, simpanan bank, KWSP, saham, kenderaan, dan lain-lain.</li>
-        <li><strong>Tolak kos pengurusan jenazah</strong> — Kos memandi, mengafan, dan pengebumian.</li>
-        <li><strong>Selesaikan hutang</strong> — Termasuk hutang bank, pinjaman peribadi, zakat tertunggak, dan lain-lain.</li>
-        <li><strong>Tolak harta sepencarian</strong> — Bahagian pasangan hidup ke atas harta perolehan bersama (ditentukan oleh Mahkamah Syariah).</li>
-        <li><strong>Laksanakan wasiat</strong> — Maksimum 1/3 daripada baki bersih untuk bukan waris.</li>
-        <li><strong>Bahagikan baki mengikut Faraid</strong> — Berdasarkan bahagian yang ditetapkan dalam Al-Quran dan Hadis.</li>
+        <li><strong>Uruskan jenazah</strong> — kos memandi, mengafan, dan pengebumian diselesaikan dahulu.</li>
+        <li><strong>Sediakan inventori harta</strong> — senaraikan semua aset (harta alih dan tak alih) serta liabiliti si mati.</li>
+        <li><strong>Selesaikan hutang</strong> — hutang bank, pinjaman, zakat dan fidyah tertunggak.</li>
+        <li><strong>Tolak harta sepencarian</strong> — bahagian pasangan hidup ke atas harta perolehan bersama.</li>
+        <li><strong>Laksanakan wasiat</strong> — maksimum 1/3 daripada baki bersih untuk bukan waris.</li>
+        <li><strong>Kenal pasti waris & dapatkan Sijil Faraid</strong> — sahkan siapa yang berhak dan berapa bahagian mereka.</li>
+        <li><strong>Mohon pentadbiran pusaka</strong> — melalui JKPTG, Amanah Raya, atau Mahkamah Tinggi mengikut jenis harta.</li>
+        <li><strong>Agihkan baki mengikut Faraid</strong> — pindah milik harta kepada waris mengikut bahagian yang ditetapkan.</li>
       </ol>
+      <p>Bahagian di bawah menerangkan setiap langkah utama dengan lebih terperinci.</p>
 
-      <h2 class="text-2xl font-bold text-teal-800 mt-8">Bahagian Tetap (Ashab al-Furud)</h2>
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 1 — Sediakan Inventori Harta Pusaka</h2>
+      <p>Langkah pertama yang paling penting ialah menyediakan <strong>senarai lengkap aset dan liabiliti</strong> si mati. Tanpa inventori yang tepat, proses pembahagian tidak boleh diteruskan. Harta pusaka terbahagi kepada dua kategori:</p>
+      <ul>
+        <li><strong>Harta tak alih (immovable)</strong> — tanah, rumah, bangunan, dan hartanah lain yang mempunyai geran atau hakmilik.</li>
+        <li><strong>Harta alih (movable)</strong> — wang tunai, simpanan bank, KWSP, ASB/ASNB, Tabung Haji, saham, unit amanah, kenderaan, perhiasan, insurans/takaful, dan perniagaan.</li>
+      </ul>
+      <p>Bagi setiap aset, kumpulkan dokumen sokongan seperti nombor akaun, geran hartanah, sijil saham, atau penyata terkini. Jenis harta menentukan <strong>agensi mana</strong> yang akan menguruskan pembahagian (lihat Langkah 6).</p>
+
+      <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Nota Penama (Nominee)</h3>
+        <p class="text-sm text-warm-700">Penama bagi KWSP, Tabung Haji, atau akaun bank bukanlah pemilik mutlak — mereka hanya <strong>pentadbir amanah</strong> yang wajib mengagihkan wang tersebut kepada waris mengikut Faraid. Wang penama tetap sebahagian daripada harta pusaka.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 2 — Menyelesaikan Hutang Si Mati</h2>
+      <p>Selepas kos pengurusan jenazah, <strong>semua hutang si mati mesti diselesaikan sebelum harta dibahagikan</strong>. Ini termasuk:</p>
+      <ul>
+        <li><strong>Hutang kepada Allah</strong> — zakat tertunggak, fidyah, dan nazar yang belum ditunaikan.</li>
+        <li><strong>Hutang kepada manusia</strong> — pinjaman bank, kad kredit, pinjaman peribadi, dan hutang perniagaan.</li>
+      </ul>
+
+      <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 not-prose mt-6">
+        <h3 class="font-bold text-yellow-800 mb-2">Hutang Bercagar vs Tidak Bercagar</h3>
+        <p class="text-sm text-yellow-800/80">Hutang bercagar (seperti pinjaman rumah) sering dilindungi oleh <strong>MRTA/MRTT</strong> — jika ada, tuntut pampasan takaful/insurans untuk melangsaikan baki pinjaman. Hutang tidak bercagar (kad kredit, pinjaman peribadi) perlu dibayar daripada harta pusaka. Semak setiap pinjaman untuk perlindungan takaful sebelum menganggap ia hutang aktif.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 3 — Asingkan Harta Sepencarian</h2>
+      <p>Jika si mati mempunyai pasangan yang masih hidup, pasangan itu boleh menuntut <strong>harta sepencarian</strong> — bahagian ke atas harta yang diperoleh bersama sepanjang perkahwinan. Tuntutan ini <strong>diasingkan terlebih dahulu</strong> dan bukan sebahagian daripada harta yang dibahagikan mengikut Faraid.</p>
+      <p>Tuntutan harta sepencarian dibuat di <strong>Mahkamah Syariah</strong> dan bukan automatik. Selepas bahagian sepencarian ditolak, pasangan <em>masih</em> layak menerima bahagian Faraid (1/8, 1/4, atau 1/2) daripada baki harta. Baca panduan penuh dalam <a href="/harta-sepencarian" class="text-teal-700 underline">Harta Sepencarian</a>.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 4 — Laksanakan Wasiat</h2>
+      <p>Jika si mati meninggalkan <strong>wasiat</strong>, ia dilaksanakan selepas hutang dan harta sepencarian, tetapi tertakluk kepada dua had penting:</p>
+      <ul>
+        <li>Wasiat dihadkan kepada <strong>maksimum 1/3</strong> daripada baki harta bersih.</li>
+        <li>Wasiat <strong>tidak boleh diberikan kepada waris</strong> yang sudah menerima Faraid, kecuali dengan persetujuan semua waris lain.</li>
+      </ul>
+      <p>Wasiat sesuai untuk memberi harta kepada bukan waris — contohnya anak angkat, cucu yang terhalang, badan amal, atau masjid. Baki 2/3 (atau keseluruhan jika tiada wasiat) dibahagikan mengikut Faraid.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 5 — Mengenal Pasti Waris yang Berhak</h2>
+      <p>Sebelum harta boleh diagihkan, waris yang sah perlu dikenal pasti. Waris terbahagi kepada dua kumpulan utama: <strong>Ashab al-Furud</strong> (waris yang menerima bahagian tetap) dan <strong>Asabah</strong> (waris yang menerima baki). Seseorang juga boleh <strong>terhalang (hijab)</strong> daripada mewarisi apabila wujud waris yang lebih hampir, atau kerana penghalang seperti berlainan agama atau membunuh pewaris.</p>
+
+      <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 not-prose mt-6">
+        <h3 class="font-bold text-teal-900 text-lg mb-2">Ringkasan Bahagian Waris Utama</h3>
+        <ul class="text-sm text-warm-700 space-y-1 list-disc list-inside">
+          <li><strong>Suami</strong> — 1/2 (tiada anak) atau 1/4 (ada anak).</li>
+          <li><strong>Isteri</strong> — 1/4 (tiada anak) atau 1/8 (ada anak).</li>
+          <li><strong>Ibu / Bapa</strong> — 1/6 setiap seorang apabila ada anak; bapa turut mengambil baki (Asabah) jika tiada anak lelaki.</li>
+          <li><strong>Anak lelaki & perempuan</strong> — berkongsi baki (Asabah) dengan nisbah <strong>2:1</strong>.</li>
+        </ul>
+        <p class="text-sm text-warm-700 mt-2">Untuk jadual pecahan penuh semua kombinasi waris, lihat <a href="/jadual-pembahagian-faraid" class="text-teal-700 underline">Jadual Pembahagian Faraid</a>.</p>
+      </div>
+
+      <p class="mt-6">Penetapan waris ini disahkan secara rasmi melalui <strong>Sijil Faraid</strong> yang dikeluarkan oleh Mahkamah Syariah — dokumen yang menyenaraikan setiap waris dan bahagian mereka mengikut hukum syarak.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Langkah 6 — Proses Rasmi & Agensi Terlibat</h2>
+      <p>Di Malaysia, pentadbiran harta pusaka orang Islam melibatkan beberapa institusi. Agensi yang menguruskan pembahagian bergantung pada <strong>jenis dan nilai harta</strong>:</p>
+
       <div class="overflow-x-auto not-prose">
         <table class="w-full text-sm border-collapse border border-warm-200">
           <thead>
             <tr class="bg-teal-50">
-              <th class="border border-warm-200 px-4 py-2 text-left font-bold text-teal-900">Waris</th>
-              <th class="border border-warm-200 px-4 py-2 text-left font-bold text-teal-900">Syarat</th>
-              <th class="border border-warm-200 px-4 py-2 text-center font-bold text-teal-900">Bahagian</th>
+              <th class="border border-warm-200 px-4 py-2 text-left font-bold text-teal-900">Jenis Kes</th>
+              <th class="border border-warm-200 px-4 py-2 text-left font-bold text-teal-900">Agensi</th>
+              <th class="border border-warm-200 px-4 py-2 text-left font-bold text-teal-900">Peranan</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="border border-warm-200 px-4 py-2">Suami</td><td class="border border-warm-200 px-4 py-2">Tiada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/2</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Suami</td><td class="border border-warm-200 px-4 py-2">Ada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/4</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2">Tiada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/4</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Isteri</td><td class="border border-warm-200 px-4 py-2">Ada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/8</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Bapa</td><td class="border border-warm-200 px-4 py-2">Ada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/6</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2">Ada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/6</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Ibu</td><td class="border border-warm-200 px-4 py-2">Tiada anak</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/3</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Anak perempuan (1)</td><td class="border border-warm-200 px-4 py-2">Tiada anak lelaki</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">1/2</td></tr>
-            <tr><td class="border border-warm-200 px-4 py-2">Anak perempuan (2+)</td><td class="border border-warm-200 px-4 py-2">Tiada anak lelaki</td><td class="border border-warm-200 px-4 py-2 text-center font-bold">2/3</td></tr>
+            <tr>
+              <td class="border border-warm-200 px-4 py-2">Penetapan waris & bahagian</td>
+              <td class="border border-warm-200 px-4 py-2">Mahkamah Syariah</td>
+              <td class="border border-warm-200 px-4 py-2">Mengeluarkan <strong>Sijil Faraid</strong> yang mengesahkan waris dan bahagian mengikut syarak.</td>
+            </tr>
+            <tr>
+              <td class="border border-warm-200 px-4 py-2">Pusaka kecil (ada harta tak alih, ≤ RM 2 juta)</td>
+              <td class="border border-warm-200 px-4 py-2">Unit Pembahagian Pusaka Kecil (JKPTG)</td>
+              <td class="border border-warm-200 px-4 py-2">Mengendalikan perbicaraan dan mengeluarkan perintah pembahagian pusaka kecil.</td>
+            </tr>
+            <tr>
+              <td class="border border-warm-200 px-4 py-2">Pusaka ringkas (harta alih sahaja)</td>
+              <td class="border border-warm-200 px-4 py-2">Amanah Raya Berhad (ARB)</td>
+              <td class="border border-warm-200 px-4 py-2">Mentadbir dan mengagihkan harta alih seperti wang, saham, dan kenderaan.</td>
+            </tr>
+            <tr>
+              <td class="border border-warm-200 px-4 py-2">Pusaka besar (&gt; RM 2 juta / ada wasiat)</td>
+              <td class="border border-warm-200 px-4 py-2">Mahkamah Tinggi Sivil</td>
+              <td class="border border-warm-200 px-4 py-2">Mengeluarkan geran probet (jika ada wasiat) atau surat kuasa mentadbir (Letter of Administration).</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <h2 class="text-2xl font-bold text-teal-800 mt-8">Asabah (Waris Baki)</h2>
-      <p>Selepas bahagian tetap diagihkan, baki harta diberikan kepada waris Asabah. Anak lelaki adalah Asabah utama. Jika tiada anak lelaki, bapa menjadi Asabah. Jika anak lelaki dan anak perempuan wujud bersama, mereka berkongsi baki dengan nisbah <strong>2:1</strong>.</p>
+      <p class="mt-6">Urutan lazim: dapatkan <strong>Sijil Faraid</strong> daripada Mahkamah Syariah dahulu, kemudian bawa sijil itu ke agensi pentadbiran yang berkaitan (JKPTG, Amanah Raya, atau Mahkamah Tinggi) untuk memindah milik harta kepada waris.</p>
+      <p>Rujukan rasmi: <a href="https://www.jksm.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Jabatan Kehakiman Syariah Malaysia (JKSM)</a>, <a href="https://www.kptg.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">JKPTG</a>, <a href="https://www.amanahraya.com.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">Amanah Raya Berhad</a>, dan <a href="https://www.islam.gov.my" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline">JAKIM</a>.</p>
+
+      <h2 class="text-2xl font-bold text-teal-800 mt-8">Dokumen yang Biasa Diperlukan</h2>
+      <p>Sediakan dokumen berikut untuk melancarkan proses pentadbiran pusaka:</p>
+      <ul>
+        <li>Sijil kematian si mati.</li>
+        <li>Kad pengenalan si mati dan semua waris.</li>
+        <li>Sijil nikah / perkahwinan dan sijil kelahiran anak (untuk membuktikan hubungan waris).</li>
+        <li>Geran hartanah, sijil saham, penyata bank, penyata KWSP/ASB, dan dokumen aset lain.</li>
+        <li>Senarai hutang dan liabiliti si mati.</li>
+        <li>Sijil Faraid daripada Mahkamah Syariah.</li>
+      </ul>
     </div>
 
     <div class="space-y-4">
       <h2 class="text-2xl font-bold text-warm-800 text-center">Kira Pembahagian Harta Anda</h2>
-      <p class="text-warm-600 text-center">Masukkan maklumat harta dan waris untuk mengira pembahagian Faraid secara automatik.</p>
+      <p class="text-warm-600 text-center">Masukkan maklumat harta dan waris untuk mengira bahagian Faraid secara automatik sebelum memulakan proses rasmi.</p>
       <Calculator client:visible embedded />
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-teal-800">Soalan Lazim (FAQ)</h2>
+
+      <h3 class="text-lg font-bold text-warm-800">Berapa lama proses pembahagian harta pusaka mengambil masa?</h3>
+      <p>Tempoh bergantung pada jenis dan nilai harta serta kelengkapan dokumen dan persetujuan waris. Kes pusaka kecil yang lengkap di Unit Pembahagian Pusaka Kecil (JKPTG) boleh selesai dalam beberapa bulan, manakala pusaka besar melalui Mahkamah Tinggi atau kes yang dipertikaikan boleh mengambil masa lebih setahun. Mengumpul inventori harta dan Sijil Faraid lebih awal mempercepat proses.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Apakah beza pusaka kecil, pusaka ringkas, dan pusaka besar?</h3>
+      <p>Pusaka kecil ialah harta pusaka yang mengandungi harta tak alih (seperti tanah atau rumah) dan biasanya bernilai bawah RM 2 juta — diuruskan oleh Unit Pembahagian Pusaka Kecil (JKPTG). Pusaka ringkas melibatkan harta alih sahaja (wang, saham, kenderaan) tanpa harta tak alih — boleh diuruskan oleh Amanah Raya Berhad. Pusaka besar bernilai melebihi RM 2 juta atau melibatkan wasiat — diuruskan oleh Mahkamah Tinggi Sivil melalui geran probet atau surat kuasa mentadbir.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Apakah itu Sijil Faraid dan di mana untuk memohon?</h3>
+      <p>Sijil Faraid ialah dokumen yang dikeluarkan oleh Mahkamah Syariah yang mengesahkan siapakah waris yang sah dan berapakah bahagian setiap seorang mengikut hukum syarak. Ia bukan dokumen pemindahan harta, tetapi menjadi rujukan rasmi bagi agensi pentadbiran pusaka (JKPTG, Amanah Raya, atau Mahkamah Tinggi) untuk mengagihkan harta kepada waris.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Perlukah waris melantik peguam untuk pembahagian pusaka?</h3>
+      <p>Tidak semestinya. Kes pusaka kecil di JKPTG dan permohonan di Amanah Raya boleh diuruskan sendiri oleh waris tanpa peguam. Namun, khidmat Peguam Syarie atau peguam sivil digalakkan bagi kes yang rumit, dipertikaikan, melibatkan wasiat, tuntutan harta sepencarian, atau pusaka besar di Mahkamah Tinggi.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">Bolehkah waris mengagihkan harta pusaka tanpa Sijil Faraid?</h3>
+      <p>Secara amalannya tidak. Agensi seperti bank, JKPTG, dan Amanah Raya memerlukan penetapan bahagian waris yang sah sebelum harta boleh dipindah milik. Sijil Faraid (atau perintah pembahagian daripada mahkamah) menjadi asas rasmi pembahagian. Mengagihkan harta tanpa penetapan rasmi berisiko menafikan hak waris dan menimbulkan pertikaian di kemudian hari.</p>
     </div>
 
     <div class="text-center text-sm text-warm-500 space-x-4">
       <a href="/" class="text-teal-600 hover:underline">Kalkulator Faraid</a>
       <span>&middot;</span>
-      <a href="/panduan-faraid" class="text-teal-600 hover:underline">Panduan Faraid Lengkap</a>
+      <a href="/harta-sepencarian" class="text-teal-600 hover:underline">Harta Sepencarian</a>
       <span>&middot;</span>
       <a href="/jadual-pembahagian-faraid" class="text-teal-600 hover:underline">Jadual Pembahagian Faraid</a>
       <span>&middot;</span>
-      <a href="/harta-sepencarian" class="text-teal-600 hover:underline">Harta Sepencarian</a>
+      <a href="/panduan-faraid" class="text-teal-600 hover:underline">Panduan Faraid Lengkap</a>
       <span>&middot;</span>
       <a href="/apa-itu-faraid" class="text-teal-600 hover:underline">Apa Itu Faraid?</a>
     </div>
