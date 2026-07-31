@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test:faraid": "node scripts/test-faraid.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
