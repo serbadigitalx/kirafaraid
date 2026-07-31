@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const today = new Date().toLocaleDateString('ms-MY');
+const effectiveDate = '31 Julai 2026';
+const partnerName = import.meta.env.PUBLIC_LEAD_PARTNER_NAME || 'Rakan Pakar Faraid KiraFaraid';
 ---
 
 <BaseLayout
@@ -15,19 +16,36 @@ const today = new Date().toLocaleDateString('ms-MY');
       <h1 class="text-2xl font-bold">Dasar Privasi (Privacy Policy)</h1>
     </div>
     <div class="prose prose-slate text-sm max-w-none">
-      <p><strong>Tarikh Berkuatkuasa:</strong> {today}</p>
-      <p>Di KiraFaraid, kami menghargai privasi anda. Dasar Privasi ini menerangkan bagaimana kami mengendalikan maklumat apabila anda menggunakan kalkulator faraid kami.</p>
+      <p><strong>Tarikh Berkuatkuasa:</strong> {effectiveDate}</p>
+      <p>Dasar ini menerangkan bagaimana KiraFaraid mengumpul, menggunakan, berkongsi, menyimpan dan melindungi maklumat apabila anda menggunakan kalkulator atau meminta untuk dihubungi oleh pakar.</p>
 
-      <h3 class="text-lg font-bold text-warm-800 mt-4">1. Pengumpulan Maklumat</h3>
-      <p>Kalkulator kami beroperasi secara masa nyata (real-time) di pelayar web anda. Kami <strong>tidak menyimpan</strong> data peribadi seperti jumlah harta, struktur keluarga, atau maklumat kewangan anda di pelayan (server) kami. Semua pengiraan berlaku secara tempatan pada peranti anda.</p>
+      <h3 class="text-lg font-bold text-warm-800 mt-4">1. Data Kalkulator</h3>
+      <p>Kalkulator beroperasi di pelayar web anda. Jumlah harta, struktur keluarga dan keputusan pengiraan <strong>tidak dihantar melalui borang konsultasi</strong> dan tidak disimpan dalam pangkalan data lead kami.</p>
 
-      <h3 class="text-lg font-bold text-warm-800 mt-4">2. Penggunaan Kuki (Cookies)</h3>
+      <h3 class="text-lg font-bold text-warm-800 mt-4">2. Borang Konsultasi</h3>
+      <p>Jika anda memilih untuk meminta pakar menghubungi anda, kami mengumpul nama, nombor telefon, e-mel jika diberikan, negeri, masa hubungan pilihan, jenis bantuan, mesej ringkas, halaman sumber, maklumat kempen dan rekod persetujuan.</p>
+      <p>Jangan masukkan nombor kad pengenalan, dokumen pusaka atau maklumat kewangan terperinci dalam ruang mesej.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">3. Tujuan dan Perkongsian</h3>
+      <p>Maklumat borang digunakan untuk mengurus permintaan konsultasi, mengelakkan penghantaran pendua, membuat susulan dan mengukur hasil perkhidmatan. Dengan persetujuan anda, maklumat hubungan tersebut akan tersedia kepada <strong>{partnerName}</strong> untuk tujuan menghubungi anda mengenai pertanyaan Faraid.</p>
+      <p>Kami tidak membenarkan maklumat lead dijual, digunakan untuk tujuan lain atau dikongsi kepada pihak lain tanpa asas yang dibenarkan.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">4. Persetujuan dan Pilihan</h3>
+      <p>Penghantaran borang konsultasi adalah pilihan. Anda boleh menarik balik persetujuan atau meminta supaya hubungan dihentikan dengan menghubungi kami. Penarikan balik tidak menjejaskan pemprosesan yang telah berlaku sebelum permintaan diterima.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">5. Keselamatan dan Penyimpanan</h3>
+      <p>Akses kepada lead dihadkan kepada akaun yang dibenarkan. Kami menggunakan kawalan sesi, rekod aktiviti dan perkhidmatan teknologi yang dilindungi untuk menyimpan serta memproses maklumat. Data disimpan hanya selama diperlukan untuk tujuan konsultasi, pemantauan dan kewajipan yang berkaitan. Rekod yang tidak lagi diperlukan akan dipadam atau dinyahpengenalan.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">6. Hak Anda</h3>
+      <p>Anda boleh meminta akses, pembetulan atau pemadaman maklumat lead anda, atau menarik balik kebenaran untuk dihubungi. Sertakan nombor rujukan lead jika ada dan hubungi <a href="mailto:afiq@afiq.my">afiq@afiq.my</a>.</p>
+
+      <h3 class="text-lg font-bold text-warm-800 mt-4">7. Penggunaan Kuki (Cookies)</h3>
       <p>Laman web ini mungkin menggunakan kuki pihak ketiga, terutamanya daripada Google AdSense, untuk memaparkan iklan yang relevan. Google menggunakan kuki untuk memaparkan iklan berdasarkan lawatan anda ke laman web ini dan laman web lain di internet.</p>
 
-      <h3 class="text-lg font-bold text-warm-800 mt-4">3. Pautan Luar</h3>
+      <h3 class="text-lg font-bold text-warm-800 mt-4">8. Pautan dan Penyedia Perkhidmatan</h3>
       <p>Laman web ini mungkin mengandungi pautan ke laman web luar (contohnya laman web rasmi jabatan agama). Kami tidak bertanggungjawab ke atas kandungan atau amalan privasi laman web tersebut.</p>
 
-      <h3 class="text-lg font-bold text-warm-800 mt-4">4. Perubahan Dasar</h3>
+      <h3 class="text-lg font-bold text-warm-800 mt-4">9. Perubahan Dasar</h3>
       <p>Kami berhak untuk mengubah dasar privasi ini pada bila-bila masa. Sebarang perubahan akan dipaparkan di halaman ini.</p>
 
       <div class="mt-8 pt-6 border-t border-warm-200">

@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /partner/
+Disallow: /api/
 Sitemap: https://www.kirafaraid.my/sitemap-index.xml
