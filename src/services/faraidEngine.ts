@@ -1,201 +1,905 @@
 import { Gender } from '../types';
-import type { HeirsCount, AssetDetails, CalculationResult, HeirShare } from '../types';
+import type {
+  AssetDetails,
+  BlockedHeir,
+  CaseFlags,
+  CalculationResult,
+  Fraction,
+  HeirId,
+  HeirsCount,
+  HeirShare,
+  ShareStatus
+} from '../types';
+
+const ZERO: Fraction = { numerator: 0, denominator: 1 };
+const ONE: Fraction = { numerator: 1, denominator: 1 };
+
+const gcd = (a: number, b: number): number => {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x || 1;
+};
+
+const lcm = (a: number, b: number): number => Math.abs(a * b) / gcd(a, b);
+
+const fraction = (numerator: number, denominator = 1): Fraction => {
+  if (denominator === 0) throw new Error('Penyebut pecahan tidak boleh sifar.');
+  if (numerator === 0) return { ...ZERO };
+  const sign = denominator < 0 ? -1 : 1;
+  const divisor = gcd(numerator, denominator);
+  return {
+    numerator: sign * (numerator / divisor),
+    denominator: Math.abs(denominator / divisor)
+  };
+};
+
+const add = (a: Fraction, b: Fraction): Fraction =>
+  fraction(a.numerator * b.denominator + b.numerator * a.denominator, a.denominator * b.denominator);
+
+const subtract = (a: Fraction, b: Fraction): Fraction =>
+  fraction(a.numerator * b.denominator - b.numerator * a.denominator, a.denominator * b.denominator);
+
+const multiply = (a: Fraction, b: Fraction): Fraction =>
+  fraction(a.numerator * b.numerator, a.denominator * b.denominator);
+
+const divide = (a: Fraction, b: Fraction): Fraction =>
+  fraction(a.numerator * b.denominator, a.denominator * b.numerator);
+
+const compare = (a: Fraction, b: Fraction): number =>
+  a.numerator * b.denominator - b.numerator * a.denominator;
+
+const maxFraction = (...values: Fraction[]): Fraction =>
+  values.reduce((best, value) => (compare(value, best) > 0 ? value : best));
+
+const toNumber = (value: Fraction): number => value.numerator / value.denominator;
+
+export const formatFraction = (value: Fraction): string =>
+  `${value.numerator}/${value.denominator}`;
+
+const HEIR_LABELS: Record<HeirId, string> = {
+  spouse: 'Pasangan',
+  father: 'Bapa',
+  mother: 'Ibu',
+  paternalGrandfather: 'Datuk sebelah bapa',
+  maternalGrandmother: 'Nenek sebelah ibu',
+  paternalGrandmother: 'Nenek sebelah bapa',
+  sons: 'Anak lelaki',
+  daughters: 'Anak perempuan',
+  grandsons: 'Cucu lelaki daripada anak lelaki',
+  granddaughters: 'Cucu perempuan daripada anak lelaki',
+  greatGrandsons: 'Cicit lelaki daripada cucu lelaki',
+  greatGranddaughters: 'Cicit perempuan daripada cucu lelaki',
+  fullBrothers: 'Saudara lelaki seibu-sebapa',
+  fullSisters: 'Saudara perempuan seibu-sebapa',
+  paternalBrothers: 'Saudara lelaki sebapa',
+  paternalSisters: 'Saudara perempuan sebapa',
+  maternalBrothers: 'Saudara lelaki seibu',
+  maternalSisters: 'Saudara perempuan seibu',
+  fullNephews: 'Anak lelaki saudara lelaki seibu-sebapa',
+  paternalNephews: 'Anak lelaki saudara lelaki sebapa',
+  fullPaternalUncles: 'Bapa saudara seibu-sebapa sebelah bapa',
+  paternalUncles: 'Bapa saudara sebapa sebelah bapa',
+  fullCousins: 'Sepupu lelaki daripada bapa saudara seibu-sebapa',
+  paternalCousins: 'Sepupu lelaki daripada bapa saudara sebapa'
+};
+
+const getCount = (heirs: HeirsCount, id: HeirId): number => {
+  const value = heirs[id];
+  return typeof value === 'boolean' ? Number(value) : Math.max(0, Math.floor(value || 0));
+};
+
+const normaliseHeirs = (heirs: HeirsCount, gender: Gender): HeirsCount => ({
+  spouse: Math.min(gender === Gender.MALE ? 4 : 1, getCount(heirs, 'spouse')),
+  sons: getCount(heirs, 'sons'),
+  daughters: getCount(heirs, 'daughters'),
+  father: Boolean(heirs.father),
+  mother: Boolean(heirs.mother),
+  paternalGrandfather: Boolean(heirs.paternalGrandfather),
+  maternalGrandmother: Boolean(heirs.maternalGrandmother),
+  paternalGrandmother: Boolean(heirs.paternalGrandmother),
+  grandsons: getCount(heirs, 'grandsons'),
+  granddaughters: getCount(heirs, 'granddaughters'),
+  greatGrandsons: getCount(heirs, 'greatGrandsons'),
+  greatGranddaughters: getCount(heirs, 'greatGranddaughters'),
+  fullBrothers: getCount(heirs, 'fullBrothers'),
+  fullSisters: getCount(heirs, 'fullSisters'),
+  paternalBrothers: getCount(heirs, 'paternalBrothers'),
+  paternalSisters: getCount(heirs, 'paternalSisters'),
+  maternalBrothers: getCount(heirs, 'maternalBrothers'),
+  maternalSisters: getCount(heirs, 'maternalSisters'),
+  fullNephews: getCount(heirs, 'fullNephews'),
+  paternalNephews: getCount(heirs, 'paternalNephews'),
+  fullPaternalUncles: getCount(heirs, 'fullPaternalUncles'),
+  paternalUncles: getCount(heirs, 'paternalUncles'),
+  fullCousins: getCount(heirs, 'fullCousins'),
+  paternalCousins: getCount(heirs, 'paternalCousins')
+});
+
+const DEFAULT_CASE_FLAGS: CaseFlags = {
+  unbornHeir: false,
+  missingHeir: false,
+  intersexHeir: false,
+  layeredOrSimultaneousDeaths: false,
+  unresolvedDisqualification: false,
+  hasUnlistedHeirs: false,
+  confirmedNoOtherHeirs: false
+};
+
+interface MutableShare {
+  id: HeirId | 'baitulmal';
+  type: string;
+  count: number;
+  status: ShareStatus;
+  share: Fraction;
+  note: string;
+}
+
+const makeShare = (
+  id: HeirId | 'baitulmal',
+  type: string,
+  count: number,
+  status: ShareStatus,
+  share: Fraction,
+  note: string
+): MutableShare => ({ id, type, count, status, share, note });
+
+const sumShares = (shares: MutableShare[]): Fraction =>
+  shares.reduce((total, item) => add(total, item.share), ZERO);
+
+const addOrMergeShare = (
+  shares: MutableShare[],
+  id: HeirId,
+  type: string,
+  count: number,
+  status: ShareStatus,
+  value: Fraction,
+  note: string
+) => {
+  if (count <= 0 || compare(value, ZERO) <= 0) return;
+  const existing = shares.find(item => item.id === id);
+  if (!existing) {
+    shares.push(makeShare(id, type, count, status, value, note));
+    return;
+  }
+  existing.share = add(existing.share, value);
+  existing.status = existing.status === status ? status : 'fardu_asabah';
+  existing.note = `${existing.note}; ${note}`;
+};
+
+const applyAmounts = (shares: MutableShare[], netEstate: number): HeirShare[] =>
+  shares.map(item => ({
+    ...item,
+    shareFraction: formatFraction(item.share),
+    sharePercentage: toNumber(item.share),
+    amount: toNumber(item.share) * netEstate
+  }));
+
+const asalMasalahFor = (shares: MutableShare[]): number =>
+  shares.reduce((denominator, item) => lcm(denominator, item.share.denominator), 1);
+
+const blockHeir = (
+  active: Record<HeirId, number>,
+  blocked: BlockedHeir[],
+  id: HeirId,
+  reason: string
+) => {
+  if (active[id] <= 0) return;
+  blocked.push({ id, type: HEIR_LABELS[id], count: active[id], reason });
+  active[id] = 0;
+};
+
+const blockHeirs = (
+  active: Record<HeirId, number>,
+  blocked: BlockedHeir[],
+  ids: HeirId[],
+  reason: string
+) => ids.forEach(id => blockHeir(active, blocked, id, reason));
+
+const makeRaddAlternative = (shares: MutableShare[]): MutableShare[] | undefined => {
+  const spouseShares = shares.filter(item => item.id === 'spouse');
+  const raddEligible = shares.filter(item => item.id !== 'spouse' && item.id !== 'baitulmal');
+  if (raddEligible.length === 0) return undefined;
+
+  const spouseTotal = sumShares(spouseShares);
+  const availableForRadd = subtract(ONE, spouseTotal);
+  const eligibleOriginalTotal = sumShares(raddEligible);
+  if (compare(eligibleOriginalTotal, ZERO) <= 0) return undefined;
+
+  return [
+    ...spouseShares.map(item => ({ ...item })),
+    ...raddEligible.map(item => ({
+      ...item,
+      status: 'radd' as const,
+      share: multiply(divide(item.share, eligibleOriginalTotal), availableForRadd),
+      note: 'Bahagian alternatif selepas radd'
+    }))
+  ];
+};
+
+const distributeTwoToOne = (
+  shares: MutableShare[],
+  maleId: HeirId,
+  femaleId: HeirId,
+  active: Record<HeirId, number>,
+  residue: Fraction,
+  note: string
+) => {
+  const maleCount = active[maleId];
+  const femaleCount = active[femaleId];
+  const units = maleCount * 2 + femaleCount;
+  if (units === 0) return;
+  if (maleCount > 0) {
+    addOrMergeShare(
+      shares,
+      maleId,
+      HEIR_LABELS[maleId],
+      maleCount,
+      'asabah',
+      multiply(residue, fraction(maleCount * 2, units)),
+      note
+    );
+  }
+  if (femaleCount > 0) {
+    addOrMergeShare(
+      shares,
+      femaleId,
+      HEIR_LABELS[femaleId],
+      femaleCount,
+      'asabah',
+      multiply(residue, fraction(femaleCount, units)),
+      note
+    );
+  }
+};
 
 /**
- * Simplified Faraid Calculation Engine for Primary Heirs.
- * Covers: Spouse, Parents, Children.
- * Does not currently cover: Grandparents, Siblings (Kalalah), etc. for simplicity of the UI demo.
+ * V2 educational calculator for the common Syafi'i heir set.
+ * It preserves exact fractions and exposes blocked heirs and review-only cases.
  */
 export const calculateFaraid = (
   deceasedGender: Gender,
-  heirs: HeirsCount,
-  assets: AssetDetails
+  inputHeirs: HeirsCount,
+  assets: AssetDetails,
+  inputFlags: Partial<CaseFlags> = {}
 ): CalculationResult => {
-  // 1. Calculate Net Estate
-  let netEstate = assets.grossAssets - assets.funeralExpenses - assets.debts - assets.hartaSepencarian;
+  const heirs = normaliseHeirs(inputHeirs, deceasedGender);
+  const caseFlags: CaseFlags = { ...DEFAULT_CASE_FLAGS, ...inputFlags };
+  const grossAssets = Math.max(0, assets.grossAssets || 0);
+  const preWasiatEstate = Math.max(
+    0,
+    grossAssets
+      - Math.max(0, assets.funeralExpenses || 0)
+      - Math.max(0, assets.debts || 0)
+      - Math.max(0, assets.hartaSepencarian || 0)
+  );
+  const actualWasiat = Math.min(Math.max(0, assets.wasiat || 0), preWasiatEstate / 3);
+  const netEstate = preWasiatEstate - actualWasiat;
 
-  // Wasiat is max 1/3 of the remaining after debts/funeral/sepencarian
-  const maxWasiat = netEstate / 3;
-  const actualWasiat = Math.min(assets.wasiat, maxWasiat);
-  netEstate = netEstate - actualWasiat;
+  const active = Object.fromEntries(
+    (Object.keys(HEIR_LABELS) as HeirId[]).map(id => [id, getCount(heirs, id)])
+  ) as Record<HeirId, number>;
+  const blockedHeirs: BlockedHeir[] = [];
+  const warnings: string[] = [];
+  let requiresExpertReview = false;
 
-  if (netEstate < 0) netEstate = 0;
-
-  const distribution: HeirShare[] = [];
-
-  // Helper to add share
-  const addShare = (type: string, count: number, num: number, den: number, note: string = '') => {
-    if (count > 0) {
-      distribution.push({
-        type,
-        count,
-        shareFraction: `${num}/${den}`,
-        sharePercentage: (num / den),
-        amount: 0, // Calculated later
-        note
-      });
+  const specialCaseWarnings: Array<[keyof CaseFlags, string]> = [
+    ['unbornHeir', 'Terdapat kandungan atau waris belum lahir yang boleh mengubah kelayakan dan bahagian.'],
+    ['missingHeir', 'Terdapat waris hilang (mafqud) atau status hidupnya belum dipastikan.'],
+    ['intersexHeir', 'Terdapat waris khunsa atau jantina pewaris memerlukan penentuan khusus.'],
+    ['layeredOrSimultaneousDeaths', 'Terdapat kematian berlapis atau urutan kematian yang belum dipastikan.'],
+    ['unresolvedDisqualification', 'Terdapat isu kelayakan seperti perbezaan agama, pembunuhan atau nasab yang belum disahkan.'],
+    ['hasUnlistedHeirs', 'Terdapat waris lain atau hubungan keluarga yang tidak disenaraikan dalam borang ini.']
+  ];
+  specialCaseWarnings.forEach(([key, message]) => {
+    if (caseFlags[key]) {
+      requiresExpertReview = true;
+      warnings.push(message);
     }
-  };
+  });
 
-  const hasChildren = heirs.sons > 0 || heirs.daughters > 0;
-  const hasMaleIssue = heirs.sons > 0;
+  const rawSiblingCount =
+    active.fullBrothers + active.fullSisters
+    + active.paternalBrothers + active.paternalSisters
+    + active.maternalBrothers + active.maternalSisters;
 
-  // --- 2. Determine Fixed Shares (Ashab al-Furud) ---
+  if (active.sons > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['grandsons', 'granddaughters', 'greatGrandsons', 'greatGranddaughters'],
+      'Didinding oleh anak lelaki yang lebih hampir.'
+    );
+  } else if (active.grandsons > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['greatGrandsons', 'greatGranddaughters'],
+      'Didinding oleh cucu lelaki yang lebih hampir.'
+    );
+  }
 
-  // Spouse
-  if (deceasedGender === Gender.MALE) {
-    // Wife/Wives
-    if (heirs.spouse > 0) {
-      const den = hasChildren ? 8 : 4;
-      addShare('Isteri', heirs.spouse, 1, den, hasChildren ? 'Ada anak (1/8)' : 'Tiada anak (1/4)');
+  if (active.father > 0) {
+    blockHeir(active, blockedHeirs, 'paternalGrandfather', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'paternalGrandmother', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'fullBrothers', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'fullSisters', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'paternalBrothers', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'paternalSisters', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'maternalBrothers', 'Didinding oleh bapa.');
+    blockHeir(active, blockedHeirs, 'maternalSisters', 'Didinding oleh bapa.');
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh bapa.'
+    );
+  }
+
+  if (active.mother > 0) {
+    blockHeir(active, blockedHeirs, 'maternalGrandmother', 'Didinding oleh ibu.');
+    blockHeir(active, blockedHeirs, 'paternalGrandmother', 'Didinding oleh ibu.');
+  }
+
+  const hasMaleDescendant = active.sons > 0 || active.grandsons > 0 || active.greatGrandsons > 0;
+  const hasFemaleDescendant = active.daughters > 0 || active.granddaughters > 0 || active.greatGranddaughters > 0;
+  const hasDescendant = hasMaleDescendant || hasFemaleDescendant;
+
+  if (hasMaleDescendant) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      [
+        'fullBrothers', 'fullSisters', 'paternalBrothers', 'paternalSisters',
+        'fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'
+      ],
+      'Didinding oleh keturunan lelaki ke bawah.'
+    );
+  }
+
+  if (hasDescendant || active.father > 0 || active.paternalGrandfather > 0) {
+    const blocker = hasDescendant ? 'keturunan ke bawah' : active.father > 0 ? 'bapa' : 'datuk sebelah bapa';
+    blockHeir(active, blockedHeirs, 'maternalBrothers', `Didinding oleh ${blocker}.`);
+    blockHeir(active, blockedHeirs, 'maternalSisters', `Didinding oleh ${blocker}.`);
+  }
+
+  if (active.paternalGrandfather > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh datuk sebelah bapa.'
+    );
+  }
+
+  if (active.fullBrothers > 0 && active.paternalGrandfather === 0) {
+    blockHeir(active, blockedHeirs, 'paternalBrothers', 'Didinding oleh saudara lelaki seibu-sebapa.');
+    blockHeir(active, blockedHeirs, 'paternalSisters', 'Didinding oleh saudara lelaki seibu-sebapa.');
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh saudara lelaki seibu-sebapa.'
+    );
+  } else if (active.paternalBrothers > 0 && active.paternalGrandfather === 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh saudara lelaki sebapa.'
+    );
+  }
+
+  const fullSisterAsabahWithFemaleDescendant =
+    hasFemaleDescendant && !hasMaleDescendant && active.fullBrothers === 0 && active.fullSisters > 0;
+  if (fullSisterAsabahWithFemaleDescendant) {
+    blockHeir(active, blockedHeirs, 'paternalBrothers', 'Didinding oleh saudara perempuan seibu-sebapa yang menjadi asabah bersama keturunan perempuan.');
+    blockHeir(active, blockedHeirs, 'paternalSisters', 'Didinding oleh saudara perempuan seibu-sebapa yang menjadi asabah bersama keturunan perempuan.');
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh saudara perempuan seibu-sebapa yang menjadi asabah bersama keturunan perempuan.'
+    );
+  } else if (active.fullSisters >= 2 && active.paternalBrothers === 0) {
+    blockHeir(active, blockedHeirs, 'paternalSisters', 'Didinding oleh dua atau lebih saudara perempuan seibu-sebapa.');
+  }
+
+  if (active.daughters >= 2 && active.grandsons === 0) {
+    blockHeir(active, blockedHeirs, 'granddaughters', 'Didinding oleh dua atau lebih anak perempuan tanpa cucu lelaki sederajat.');
+  }
+
+  const nearerFemaleDescendantShareIsComplete =
+    active.daughters >= 2
+    || (active.daughters === 1 && active.granddaughters > 0 && active.grandsons === 0)
+    || (active.daughters === 0 && active.granddaughters >= 2 && active.grandsons === 0);
+  if (nearerFemaleDescendantShareIsComplete && active.greatGrandsons === 0) {
+    blockHeir(
+      active,
+      blockedHeirs,
+      'greatGranddaughters',
+      'Didinding kerana waris perempuan keturunan lebih hampir telah melengkapkan bahagian 2/3.'
+    );
+  }
+
+  const paternalSisterAsabahWithFemaleDescendant =
+    hasFemaleDescendant
+    && !hasMaleDescendant
+    && active.fullBrothers === 0
+    && active.fullSisters === 0
+    && active.paternalBrothers === 0
+    && active.paternalSisters > 0;
+  if (paternalSisterAsabahWithFemaleDescendant) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullNephews', 'paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh saudara perempuan sebapa yang menjadi asabah bersama keturunan perempuan.'
+    );
+  }
+
+  if (active.fullNephews > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['paternalNephews', 'fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh anak lelaki saudara seibu-sebapa yang lebih hampir.'
+    );
+  } else if (active.paternalNephews > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullPaternalUncles', 'paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh anak lelaki saudara sebapa yang lebih hampir.'
+    );
+  } else if (active.fullPaternalUncles > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['paternalUncles', 'fullCousins', 'paternalCousins'],
+      'Didinding oleh bapa saudara seibu-sebapa sebelah bapa.'
+    );
+  } else if (active.paternalUncles > 0) {
+    blockHeirs(
+      active,
+      blockedHeirs,
+      ['fullCousins', 'paternalCousins'],
+      'Didinding oleh bapa saudara sebapa sebelah bapa.'
+    );
+  } else if (active.fullCousins > 0) {
+    blockHeir(active, blockedHeirs, 'paternalCousins', 'Didinding oleh sepupu lelaki seibu-sebapa yang lebih kuat.');
+  }
+
+  const grandfatherSiblingCount =
+    active.fullBrothers + active.fullSisters + active.paternalBrothers + active.paternalSisters;
+  const mixedSiblingClassesWithGrandfather =
+    active.paternalGrandfather > 0
+    && (active.fullBrothers + active.fullSisters > 0)
+    && (active.paternalBrothers + active.paternalSisters > 0);
+  if (active.paternalGrandfather > 0 && grandfatherSiblingCount > 0) {
+    requiresExpertReview = true;
+    warnings.push('Kes datuk bersama saudara seibu-sebapa atau saudara sebapa memerlukan kaedah muqasamah dan, bagi sesetengah gabungan, mu\'addah atau Akdariyyah. Sila dapatkan semakan pakar.');
+  }
+
+  const isMusytarikah =
+    deceasedGender === Gender.FEMALE
+    && active.spouse > 0
+    && !hasDescendant
+    && active.father === 0
+    && active.paternalGrandfather === 0
+    && (active.mother > 0 || active.maternalGrandmother > 0 || active.paternalGrandmother > 0)
+    && active.maternalBrothers + active.maternalSisters >= 2
+    && active.fullBrothers > 0;
+  if (isMusytarikah) {
+    requiresExpertReview = true;
+    warnings.push('Gabungan ini menyerupai masalah Musytarikah, yang memerlukan perkongsian khas antara saudara seibu dan saudara seibu-sebapa. Sila dapatkan semakan pakar.');
+  }
+
+  const shares: MutableShare[] = [];
+
+  if (active.spouse > 0) {
+    if (deceasedGender === Gender.MALE) {
+      addOrMergeShare(
+        shares,
+        'spouse',
+        'Isteri',
+        active.spouse,
+        'fardu',
+        hasDescendant ? fraction(1, 8) : fraction(1, 4),
+        hasDescendant ? 'Bahagian bersama keturunan ke bawah' : 'Bahagian tanpa keturunan ke bawah'
+      );
+    } else {
+      addOrMergeShare(
+        shares,
+        'spouse',
+        'Suami',
+        1,
+        'fardu',
+        hasDescendant ? fraction(1, 4) : fraction(1, 2),
+        hasDescendant ? 'Bahagian bersama keturunan ke bawah' : 'Bahagian tanpa keturunan ke bawah'
+      );
+    }
+  }
+
+  const isUmariyyatain =
+    active.mother > 0
+    && active.father > 0
+    && active.spouse > 0
+    && !hasDescendant
+    && rawSiblingCount < 2;
+
+  if (active.mother > 0) {
+    if (isUmariyyatain) {
+      const spouseShare = shares.find(item => item.id === 'spouse')?.share ?? ZERO;
+      addOrMergeShare(
+        shares,
+        'mother',
+        HEIR_LABELS.mother,
+        1,
+        'fardu',
+        multiply(subtract(ONE, spouseShare), fraction(1, 3)),
+        "1/3 baki dalam masalah 'Umariyyatain"
+      );
+    } else {
+      const getsSixth = hasDescendant || rawSiblingCount >= 2;
+      addOrMergeShare(
+        shares,
+        'mother',
+        HEIR_LABELS.mother,
+        1,
+        'fardu',
+        getsSixth ? fraction(1, 6) : fraction(1, 3),
+        getsSixth ? 'Ada keturunan ke bawah atau berbilang saudara' : 'Tiada keturunan ke bawah dan kurang dua saudara'
+      );
     }
   } else {
-    // Husband
-    if (heirs.spouse > 0) {
-      const den = hasChildren ? 4 : 2;
-      addShare('Suami', 1, 1, den, hasChildren ? 'Ada anak (1/4)' : 'Tiada anak (1/2)');
+    const grandmotherCount = active.maternalGrandmother + active.paternalGrandmother;
+    if (grandmotherCount > 0) {
+      if (active.maternalGrandmother > 0) {
+        addOrMergeShare(
+          shares,
+          'maternalGrandmother',
+          HEIR_LABELS.maternalGrandmother,
+          1,
+          'fardu',
+          fraction(1, 6 * grandmotherCount),
+          grandmotherCount > 1 ? 'Berkongsi 1/6 bersama nenek sebelah bapa' : 'Bahagian nenek yang layak'
+        );
+      }
+      if (active.paternalGrandmother > 0) {
+        addOrMergeShare(
+          shares,
+          'paternalGrandmother',
+          HEIR_LABELS.paternalGrandmother,
+          1,
+          'fardu',
+          fraction(1, 6 * grandmotherCount),
+          grandmotherCount > 1 ? 'Berkongsi 1/6 bersama nenek sebelah ibu' : 'Bahagian nenek yang layak'
+        );
+      }
     }
   }
 
-  // Parents
-  if (heirs.father) {
-    if (hasMaleIssue) {
-       addShare('Bapa', 1, 1, 6, 'Ada anak lelaki (1/6)');
-    } else if (hasChildren) {
-       // With daughter(s) only: 1/6 + Residue (handled later)
-       addShare('Bapa', 1, 1, 6, 'Ada anak perempuan (1/6 + Asabah)');
-    } else {
-       // No children: Residue only (handled later, usually gets remainder)
-       // Technically Father is Asabah here, but we might assign a placeholder or handle in residue step
-       // For calculation structure, we treat him as Asabah primarily.
+  if (active.daughters > 0 && active.sons === 0) {
+    addOrMergeShare(
+      shares,
+      'daughters',
+      HEIR_LABELS.daughters,
+      active.daughters,
+      'fardu',
+      active.daughters === 1 ? fraction(1, 2) : fraction(2, 3),
+      active.daughters === 1 ? 'Seorang tanpa anak lelaki' : 'Dua atau lebih tanpa anak lelaki'
+    );
+  }
+
+  if (active.granddaughters > 0 && active.grandsons === 0) {
+    let granddaughterShare: Fraction | undefined;
+    let note = '';
+    if (active.daughters === 0) {
+      granddaughterShare = active.granddaughters === 1 ? fraction(1, 2) : fraction(2, 3);
+      note = active.granddaughters === 1 ? 'Seorang tanpa anak dan cucu lelaki' : 'Dua atau lebih tanpa anak dan cucu lelaki';
+    } else if (active.daughters === 1) {
+      granddaughterShare = fraction(1, 6);
+      note = 'Melengkapkan 2/3 bersama seorang anak perempuan';
+    }
+    if (granddaughterShare) {
+      addOrMergeShare(
+        shares,
+        'granddaughters',
+        HEIR_LABELS.granddaughters,
+        active.granddaughters,
+        'fardu',
+        granddaughterShare,
+        note
+      );
     }
   }
 
-  if (heirs.mother) {
-    // Mother gets 1/6 if there are children OR (strictly speaking) multiple siblings.
-    // Assuming simplified model without sibling input, we check children.
-    const getSixth = hasChildren;
-    const den = getSixth ? 6 : 3;
-    addShare('Ibu', 1, 1, den, getSixth ? 'Ada anak (1/6)' : 'Tiada anak (1/3)');
-  }
-
-  // Daughters (if no Sons) - Fixed Share
-  if (heirs.daughters > 0 && !heirs.sons) {
-    if (heirs.daughters === 1) {
-      addShare('Anak Perempuan', 1, 1, 2, 'Tunggal (1/2)');
-    } else {
-      addShare('Anak Perempuan', heirs.daughters, 2, 3, 'Ramai (2/3)');
+  if (active.greatGranddaughters > 0 && active.greatGrandsons === 0) {
+    let greatGranddaughterShare: Fraction | undefined;
+    let note = '';
+    const noNearerFemaleDescendant = active.daughters === 0 && active.granddaughters === 0;
+    const oneNearerFemaleShare =
+      (active.daughters === 1 && active.granddaughters === 0)
+      || (active.daughters === 0 && active.granddaughters === 1);
+    if (noNearerFemaleDescendant) {
+      greatGranddaughterShare = active.greatGranddaughters === 1 ? fraction(1, 2) : fraction(2, 3);
+      note = active.greatGranddaughters === 1
+        ? 'Seorang tanpa keturunan perempuan lebih hampir atau cicit lelaki'
+        : 'Dua atau lebih tanpa keturunan perempuan lebih hampir atau cicit lelaki';
+    } else if (oneNearerFemaleShare) {
+      greatGranddaughterShare = fraction(1, 6);
+      note = 'Melengkapkan 2/3 bersama seorang waris perempuan keturunan lebih hampir';
+    }
+    if (greatGranddaughterShare) {
+      addOrMergeShare(
+        shares,
+        'greatGranddaughters',
+        HEIR_LABELS.greatGranddaughters,
+        active.greatGranddaughters,
+        'fardu',
+        greatGranddaughterShare,
+        note
+      );
     }
   }
 
-  // --- 3. Calculate Total Fixed Portions ---
-  let totalFixedPortion = 0;
-  distribution.forEach(d => {
-    totalFixedPortion += d.sharePercentage;
-  });
+  if (active.maternalBrothers + active.maternalSisters > 0) {
+    const maternalCount = active.maternalBrothers + active.maternalSisters;
+    const collective = maternalCount === 1 ? fraction(1, 6) : fraction(1, 3);
+    if (active.maternalBrothers > 0) {
+      addOrMergeShare(
+        shares,
+        'maternalBrothers',
+        HEIR_LABELS.maternalBrothers,
+        active.maternalBrothers,
+        'fardu',
+        multiply(collective, fraction(active.maternalBrothers, maternalCount)),
+        maternalCount === 1 ? 'Seorang saudara seibu' : 'Berkongsi sama rata dalam 1/3'
+      );
+    }
+    if (active.maternalSisters > 0) {
+      addOrMergeShare(
+        shares,
+        'maternalSisters',
+        HEIR_LABELS.maternalSisters,
+        active.maternalSisters,
+        'fardu',
+        multiply(collective, fraction(active.maternalSisters, maternalCount)),
+        maternalCount === 1 ? 'Seorang saudara seibu' : 'Berkongsi sama rata dalam 1/3'
+      );
+    }
+  }
 
-  // --- 4. Handle Asabah (Residue) ---
-  let residue = 1 - totalFixedPortion;
-  let isAul = false;
+  const siblingsCompeteWithGrandfather = active.paternalGrandfather > 0 && grandfatherSiblingCount > 0;
 
-  // AUL Scenario: Total shares > 1
-  if (residue < -0.0001) { // Floating point tolerance
-    isAul = true;
-    // In Aul, we normalize everyone's share.
-    // Base denominator (common multiple) logic is complex to code generically without a library.
-    // Simplified Aul: Normalize percentages to sum to 100%.
-    const totalCurrent = totalFixedPortion;
-    distribution.forEach(d => {
-      d.sharePercentage = d.sharePercentage / totalCurrent;
-      d.shareFraction = `${d.shareFraction} (Aul)`;
+  if (!hasDescendant && active.fullBrothers === 0 && active.fullSisters > 0 && !siblingsCompeteWithGrandfather) {
+    addOrMergeShare(
+      shares,
+      'fullSisters',
+      HEIR_LABELS.fullSisters,
+      active.fullSisters,
+      'fardu',
+      active.fullSisters === 1 ? fraction(1, 2) : fraction(2, 3),
+      active.fullSisters === 1 ? 'Seorang tanpa saudara lelaki sederajat' : 'Dua atau lebih tanpa saudara lelaki sederajat'
+    );
+  }
+
+  if (
+    !hasDescendant
+    && active.paternalBrothers === 0
+    && active.paternalSisters > 0
+    && !siblingsCompeteWithGrandfather
+  ) {
+    let paternalSisterShare: Fraction | undefined;
+    let note = '';
+    if (active.fullSisters === 0) {
+      paternalSisterShare = active.paternalSisters === 1 ? fraction(1, 2) : fraction(2, 3);
+      note = active.paternalSisters === 1 ? 'Seorang tanpa saudara lelaki sederajat' : 'Dua atau lebih tanpa saudara lelaki sederajat';
+    } else if (active.fullSisters === 1) {
+      paternalSisterShare = fraction(1, 6);
+      note = 'Melengkapkan 2/3 bersama seorang saudara perempuan seibu-sebapa';
+    }
+    if (paternalSisterShare) {
+      addOrMergeShare(
+        shares,
+        'paternalSisters',
+        HEIR_LABELS.paternalSisters,
+        active.paternalSisters,
+        'fardu',
+        paternalSisterShare,
+        note
+      );
+    }
+  }
+
+  const hasMaleDescendantForFather =
+    active.sons > 0 || active.grandsons > 0 || active.greatGrandsons > 0;
+  if (active.father > 0 && hasDescendant) {
+    addOrMergeShare(
+      shares,
+      'father',
+      HEIR_LABELS.father,
+      1,
+      'fardu',
+      fraction(1, 6),
+      hasMaleDescendantForFather ? 'Bahagian bersama keturunan lelaki' : '1/6 dan berhak kepada baki jika ada'
+    );
+  }
+
+  if (active.paternalGrandfather > 0 && hasDescendant && !siblingsCompeteWithGrandfather) {
+    addOrMergeShare(
+      shares,
+      'paternalGrandfather',
+      HEIR_LABELS.paternalGrandfather,
+      1,
+      'fardu',
+      fraction(1, 6),
+      hasMaleDescendantForFather ? 'Menggantikan bapa bersama keturunan lelaki' : '1/6 dan berhak kepada baki jika ada'
+    );
+  }
+
+  let totalFixed = sumShares(shares);
+  let isAul = compare(totalFixed, ONE) > 0;
+
+  if (isAul) {
+    shares.forEach(item => {
+      item.share = divide(item.share, totalFixed);
+      item.note = `${item.note}; diselaraskan melalui 'aul`;
     });
-    totalFixedPortion = 1;
-    residue = 0;
+    totalFixed = ONE;
   }
 
-  // Distribute Residue
-  if (residue > 0.0001) {
-    // Priority for Residue:
-    // 1. Son(s) + Daughter(s) (2:1 ratio)
-    // 2. Father (if no male issue) - *Correction*: If Father exists and no children, he takes residue. If Father exists and only daughters, he takes 1/6 + residue.
+  let residue = subtract(ONE, totalFixed);
+  let usedAsabah = false;
 
-    if (heirs.sons > 0) {
-      // Asabah bil Ghayr (Sons and Daughters together)
-      const malePortion = 2;
-      const femalePortion = 1;
-      const totalParts = (heirs.sons * malePortion) + (heirs.daughters * femalePortion);
-
-      const sonShareTotal = (heirs.sons * malePortion) / totalParts * residue;
-      const daughterShareTotal = (heirs.daughters * femalePortion) / totalParts * residue;
-
-      if (heirs.sons > 0) {
-        distribution.push({
-            type: 'Anak Lelaki',
-            count: heirs.sons,
-            shareFraction: 'Baki (Asabah)',
-            sharePercentage: sonShareTotal,
-            amount: 0,
-            note: 'Asabah (Nisbah 2:1)'
-        });
-      }
-      if (heirs.daughters > 0) {
-        distribution.push({
-            type: 'Anak Perempuan',
-            count: heirs.daughters,
-            shareFraction: 'Baki (Asabah)',
-            sharePercentage: daughterShareTotal,
-            amount: 0,
-            note: 'Asabah bersama Anak Lelaki'
-        });
-      }
-      residue = 0;
-    } else if (heirs.father && !hasMaleIssue) {
-        // Father takes remaining residue
-        // Check if Father is already in list (he might be there with 1/6 if there are daughters)
-        const existingFather = distribution.find(d => d.type === 'Bapa');
-        if (existingFather) {
-            existingFather.sharePercentage += residue;
-            existingFather.note += ' + Baki (Asabah)';
-            existingFather.shareFraction += ' + Baki';
-        } else {
-            distribution.push({
-                type: 'Bapa',
-                count: 1,
-                shareFraction: 'Baki (Asabah)',
-                sharePercentage: residue,
-                amount: 0,
-                note: 'Asabah (Tiada Anak Lelaki)'
-            });
-        }
-        residue = 0;
+  if (!isAul && compare(residue, ZERO) > 0) {
+    if (active.sons > 0) {
+      distributeTwoToOne(shares, 'sons', 'daughters', active, residue, 'Asabah pada nisbah lelaki 2:1 perempuan');
+      usedAsabah = true;
+    } else if (active.grandsons > 0) {
+      distributeTwoToOne(shares, 'grandsons', 'granddaughters', active, residue, 'Asabah cucu pada nisbah lelaki 2:1 perempuan');
+      usedAsabah = true;
+    } else if (active.greatGrandsons > 0) {
+      distributeTwoToOne(shares, 'greatGrandsons', 'greatGranddaughters', active, residue, 'Asabah cicit pada nisbah lelaki 2:1 perempuan');
+      usedAsabah = true;
+    } else if (active.father > 0) {
+      addOrMergeShare(shares, 'father', HEIR_LABELS.father, 1, 'asabah', residue, 'Mengambil baki sebagai asabah');
+      usedAsabah = true;
+    } else if (siblingsCompeteWithGrandfather && !mixedSiblingClassesWithGrandfather) {
+      const siblingMaleId: HeirId = active.fullBrothers + active.fullSisters > 0 ? 'fullBrothers' : 'paternalBrothers';
+      const siblingFemaleId: HeirId = siblingMaleId === 'fullBrothers' ? 'fullSisters' : 'paternalSisters';
+      const siblingUnits = active[siblingMaleId] * 2 + active[siblingFemaleId];
+      const muqasamah = multiply(residue, fraction(2, siblingUnits + 2));
+      const oneThirdResidue = multiply(residue, fraction(1, 3));
+      const grandfatherShare = maxFraction(fraction(1, 6), oneThirdResidue, muqasamah);
+      const cappedGrandfatherShare = compare(grandfatherShare, residue) > 0 ? residue : grandfatherShare;
+      addOrMergeShare(
+        shares,
+        'paternalGrandfather',
+        HEIR_LABELS.paternalGrandfather,
+        1,
+        'asabah',
+        cappedGrandfatherShare,
+        'Bahagian terbaik antara 1/6, 1/3 baki atau muqasamah'
+      );
+      const siblingResidue = subtract(residue, cappedGrandfatherShare);
+      distributeTwoToOne(shares, siblingMaleId, siblingFemaleId, active, siblingResidue, 'Baki selepas bahagian datuk, nisbah 2:1');
+      usedAsabah = true;
+    } else if (active.paternalGrandfather > 0) {
+      addOrMergeShare(
+        shares,
+        'paternalGrandfather',
+        HEIR_LABELS.paternalGrandfather,
+        1,
+        'asabah',
+        residue,
+        'Mengambil baki sebagai asabah menggantikan bapa'
+      );
+      usedAsabah = true;
+    } else if (active.fullBrothers > 0) {
+      distributeTwoToOne(shares, 'fullBrothers', 'fullSisters', active, residue, 'Asabah pada nisbah lelaki 2:1 perempuan');
+      usedAsabah = true;
+    } else if (fullSisterAsabahWithFemaleDescendant) {
+      addOrMergeShare(
+        shares,
+        'fullSisters',
+        HEIR_LABELS.fullSisters,
+        active.fullSisters,
+        'asabah',
+        residue,
+        'Asabah ma\'a al-ghairi bersama keturunan perempuan'
+      );
+      usedAsabah = true;
+    } else if (active.paternalBrothers > 0) {
+      distributeTwoToOne(shares, 'paternalBrothers', 'paternalSisters', active, residue, 'Asabah pada nisbah lelaki 2:1 perempuan');
+      usedAsabah = true;
+    } else if (paternalSisterAsabahWithFemaleDescendant) {
+      addOrMergeShare(
+        shares,
+        'paternalSisters',
+        HEIR_LABELS.paternalSisters,
+        active.paternalSisters,
+        'asabah',
+        residue,
+        'Asabah ma\'a al-ghairi bersama keturunan perempuan'
+      );
+      usedAsabah = true;
+    } else if (active.fullNephews > 0) {
+      addOrMergeShare(shares, 'fullNephews', HEIR_LABELS.fullNephews, active.fullNephews, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
+    } else if (active.paternalNephews > 0) {
+      addOrMergeShare(shares, 'paternalNephews', HEIR_LABELS.paternalNephews, active.paternalNephews, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
+    } else if (active.fullPaternalUncles > 0) {
+      addOrMergeShare(shares, 'fullPaternalUncles', HEIR_LABELS.fullPaternalUncles, active.fullPaternalUncles, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
+    } else if (active.paternalUncles > 0) {
+      addOrMergeShare(shares, 'paternalUncles', HEIR_LABELS.paternalUncles, active.paternalUncles, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
+    } else if (active.fullCousins > 0) {
+      addOrMergeShare(shares, 'fullCousins', HEIR_LABELS.fullCousins, active.fullCousins, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
+    } else if (active.paternalCousins > 0) {
+      addOrMergeShare(shares, 'paternalCousins', HEIR_LABELS.paternalCousins, active.paternalCousins, 'asabah', residue, 'Mengambil baki sebagai asabah terdekat');
+      usedAsabah = true;
     }
   }
 
-  // --- 5. Radd (Return) Scenario ---
-  // If residue remains and there are no Asabah (no father, no sons),
-  // the residue returns to Ashab al-Furud (except Spouse usually, but dependent on Mazhab. In Malaysia (Shafi'i), usually Baitulmal takes residue if no Asabah, OR it is returned.
-  // For this simplified calculator, we will mark remaining residue as "Baitulmal / Unclaimed Residue" if no Asabah found.
-  if (residue > 0.0001) {
-      distribution.push({
-          type: 'Baitulmal',
-          count: 1,
-          shareFraction: 'Baki',
-          sharePercentage: residue,
-          amount: 0,
-          note: 'Tiada waris Asabah'
-      });
+  let alternativeRadd: MutableShare[] | undefined;
+  if (!isAul && !usedAsabah && compare(residue, ZERO) > 0) {
+    if (!caseFlags.confirmedNoOtherHeirs) {
+      requiresExpertReview = true;
+      warnings.push(
+        'Baki tidak boleh ditetapkan kepada Baitulmal sehingga anda mengesahkan bahawa tiada waris lain, termasuk waris lelaki asabah yang lebih jauh.'
+      );
+    } else {
+      alternativeRadd = makeRaddAlternative(shares);
+      shares.push(makeShare('baitulmal', 'Baitulmal', 0, 'baitulmal', residue, 'Baki kerana tiada waris asabah yang dikesan selepas pengesahan pengguna'));
+      warnings.push('Baki dipaparkan kepada Baitulmal selepas pengesahan bahawa tiada waris lain. Jika pihak berkuasa membenarkan radd, lihat jadual alternatif yang tidak menambah bahagian pasangan.');
+      residue = ZERO;
+    }
   }
 
-  // --- 6. Calculate Final Amounts ---
-  distribution.forEach(d => {
-    d.amount = d.sharePercentage * netEstate;
-  });
+  if (actualWasiat < Math.max(0, assets.wasiat || 0)) {
+    warnings.push('Nilai wasiat dihadkan kepada 1/3 daripada baki selepas potongan terdahulu.');
+  }
+
+  if (requiresExpertReview) {
+    return {
+      netEstate,
+      distribution: [],
+      alternativeRaddDistribution: undefined,
+      blockedHeirs,
+      warnings,
+      totalShares: 0,
+      residueAmount: 0,
+      asalMasalah: 0,
+      eligibleHeirCount: 0,
+      isAul: false,
+      requiresExpertReview: true
+    };
+  }
+
+  const distribution = applyAmounts(shares, netEstate);
+  const alternativeRaddDistribution = alternativeRadd
+    ? applyAmounts(alternativeRadd, netEstate)
+    : undefined;
+  const eligibleHeirCount = distribution
+    .filter(item => item.id !== 'baitulmal')
+    .reduce((total, item) => total + item.count, 0);
 
   return {
     netEstate,
     distribution,
-    totalShares: totalFixedPortion,
-    residueAmount: residue * netEstate,
-    isAul
+    alternativeRaddDistribution,
+    blockedHeirs,
+    warnings,
+    totalShares: toNumber(sumShares(shares)),
+    residueAmount: toNumber(residue) * netEstate,
+    asalMasalah: asalMasalahFor(shares),
+    eligibleHeirCount,
+    isAul,
+    requiresExpertReview
   };
 };

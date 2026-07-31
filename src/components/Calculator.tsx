@@ -3,7 +3,7 @@ import InputForm from './InputForm';
 import DistributionChart from './DistributionChart';
 import ResultsView from './ResultsView';
 import { Gender } from '../types';
-import type { AssetDetails, CalculationResult, HeirsCount } from '../types';
+import type { AssetDetails, CalculationResult, CaseFlags, HeirsCount } from '../types';
 import { calculateFaraid } from '../services/faraidEngine';
 
 interface CalculatorProps {
@@ -26,7 +26,36 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
     sons: 0,
     daughters: 0,
     father: false,
-    mother: false
+    mother: false,
+    paternalGrandfather: false,
+    maternalGrandmother: false,
+    paternalGrandmother: false,
+    grandsons: 0,
+    granddaughters: 0,
+    greatGrandsons: 0,
+    greatGranddaughters: 0,
+    fullBrothers: 0,
+    fullSisters: 0,
+    paternalBrothers: 0,
+    paternalSisters: 0,
+    maternalBrothers: 0,
+    maternalSisters: 0,
+    fullNephews: 0,
+    paternalNephews: 0,
+    fullPaternalUncles: 0,
+    paternalUncles: 0,
+    fullCousins: 0,
+    paternalCousins: 0
+  });
+
+  const [caseFlags, setCaseFlags] = useState<CaseFlags>({
+    unbornHeir: false,
+    missingHeir: false,
+    intersexHeir: false,
+    layeredOrSimultaneousDeaths: false,
+    unresolvedDisqualification: false,
+    hasUnlistedHeirs: false,
+    confirmedNoOtherHeirs: false
   });
 
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -38,7 +67,7 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
     const safeHeirs = { ...heirs };
     if (gender === Gender.FEMALE && safeHeirs.spouse > 1) safeHeirs.spouse = 1;
 
-    const calcResult = calculateFaraid(gender, safeHeirs, assets);
+    const calcResult = calculateFaraid(gender, safeHeirs, assets, caseFlags);
     setResult(calcResult);
 
     setTimeout(() => {
@@ -77,7 +106,7 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
               Kalkulator Faraid
             </h1>
             <p className="text-teal-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Kira pembahagian harta pusaka mengikut hukum Islam dengan tepat dan mudah.
+              Dapatkan anggaran pembahagian bagi kes yang disokong, dengan semakan skop dan waris terdinding.
             </p>
             <button
               onClick={scrollToForm}
@@ -126,6 +155,8 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
                 setAssets={setAssets}
                 heirs={heirs}
                 setHeirs={setHeirs}
+                caseFlags={caseFlags}
+                setCaseFlags={setCaseFlags}
                 onCalculate={handleCalculate}
               />
             </div>
@@ -139,6 +170,8 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
             setAssets={setAssets}
             heirs={heirs}
             setHeirs={setHeirs}
+            caseFlags={caseFlags}
+            setCaseFlags={setCaseFlags}
             onCalculate={handleCalculate}
           />
         )}
@@ -151,9 +184,11 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
           <section ref={resultsRef} className="max-w-3xl mx-auto py-5 md:py-12 px-4 space-y-6 md:space-y-8">
             <ResultsView result={result} />
 
-            <div className="bg-white p-6 rounded-2xl border border-warm-200 shadow-sm">
-              <DistributionChart data={result.distribution} />
-            </div>
+            {!result.requiresExpertReview && (
+              <div className="bg-white p-6 rounded-2xl border border-warm-200 shadow-sm">
+                <DistributionChart data={result.distribution} />
+              </div>
+            )}
 
             <div className="flex justify-center pt-4">
               <button
