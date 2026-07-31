@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import InputForm from './InputForm';
 import DistributionChart from './DistributionChart';
 import ResultsView from './ResultsView';
+import ConsultationLeadForm from './ConsultationLeadForm';
 import { Gender } from '../types';
 import type { AssetDetails, CalculationResult, CaseFlags, HeirsCount } from '../types';
 import { calculateFaraid } from '../services/faraidEngine';
@@ -183,6 +184,8 @@ const Calculator: React.FC<CalculatorProps> = ({ embedded = false }) => {
           <div className="gold-separator"></div>
           <section ref={resultsRef} className="max-w-3xl mx-auto py-5 md:py-12 px-4 space-y-6 md:space-y-8">
             <ResultsView result={result} />
+
+            <ConsultationLeadForm requiresExpertReview={result.requiresExpertReview} />
 
             {!result.requiresExpertReview && (
               <div className="bg-white p-6 rounded-2xl border border-warm-200 shadow-sm">

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadDashboard from '../../components/LeadDashboard';
+---
+
+<BaseLayout
+  title="Portal Lead - KiraFaraid"
+  description="Portal peribadi untuk mengurus lead konsultasi KiraFaraid."
+  privatePage
+>
+  <section class="px-4 py-4 md:px-6 md:py-8">
+    <LeadDashboard client:load />
+  </section>
+</BaseLayout>

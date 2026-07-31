@@ -15,29 +15,34 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   jsonLd?: Record<string, any>;
+  privatePage?: boolean;
 }
 
-const { title, description, canonical, ogImage, jsonLd } = Astro.props;
+const { title, description, canonical, ogImage, jsonLd, privatePage = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9L97755YL9" is:inline></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-9L97755YL9');
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7303395524262953" crossorigin="anonymous" is:inline></script>
-  <script type="application/javascript" src="//anymind360.com/js/19786/ats.js" is:inline></script>
+  {!privatePage && (
+    <>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-9L97755YL9" is:inline></script>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9L97755YL9');
+      </script>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7303395524262953" crossorigin="anonymous" is:inline></script>
+      <script type="application/javascript" src="//anymind360.com/js/19786/ats.js" is:inline></script>
+    </>
+  )}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="LTOBBPShGlb86veohUh-HtfUKT_xZ8ofvZRqy0_6eZ8" />
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-  <SEOHead title={title} description={description} canonical={canonical} ogImage={ogImage} jsonLd={jsonLd} />
+  <SEOHead title={title} description={description} canonical={canonical} ogImage={ogImage} jsonLd={jsonLd} noindex={privatePage} />
   <style is:global>
     .font-display {
       font-family: 'Amiri', serif;
