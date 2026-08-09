@@ -3,6 +3,7 @@ import type { LeadActivity, LeadRecord } from '../../../lib/leads';
 import { getDashboardSession } from '../../../lib/server/leadAuth';
 import { jsonResponse, isSameOrigin, readJsonBody } from '../../../lib/server/http';
 import { validateLeadSubmission } from '../../../lib/server/leadValidation';
+import type { ValidatedLead } from '../../../lib/server/leadValidation';
 import { LeadStoreConfigurationError, supabaseRest } from '../../../lib/server/supabaseRest';
 
 export const prerender = false;
@@ -17,6 +18,8 @@ const LEAD_SELECT = [
 export const POST: APIRoute = async ({ request }) => {
   if (!isSameOrigin(request)) return jsonResponse({ error: 'Permintaan tidak sah.' }, 403);
 
+  let pendingLead: ValidatedLead | undefined;
+
   try {
     const body = await readJsonBody(request, 20_000);
     const hashSecret = process.env.LEADS_HASH_SECRET || '';
@@ -25,6 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
     const validation = validateLeadSubmission(body, hashSecret);
     if (validation.isSpam) return jsonResponse({ ok: true, reference: 'DITERIMA' }, 202);
     if (!validation.data) return jsonResponse({ error: 'Semak maklumat yang dimasukkan.', fields: validation.errors }, 400);
+    pendingLead = validation.data;
 
     const duplicateSince = new Date(Date.now() - 15 * 60 * 1000).toISOString();
     const duplicateQuery = new URLSearchParams({
@@ -72,6 +76,9 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     if (error instanceof RangeError) return jsonResponse({ error: 'Maklumat yang dihantar terlalu besar.' }, 413);
     console.error('Lead submission failed:', error instanceof Error ? error.message : 'unknown error');
+    // Last resort so a store outage does not destroy the lead: the visitor is told the
+    // form failed, and this line is the only remaining copy of what they typed.
+    if (pendingLead) console.error(`LEAD_SAVE_FAILED ${JSON.stringify(pendingLead)}`);
     return jsonResponse({ error: 'Borang tidak dapat dihantar sekarang. Sila cuba lagi sebentar.' }, 503);
   }
 };
