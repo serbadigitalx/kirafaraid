@@ -20,6 +20,10 @@ export default defineConfig({
   ],
   adapter: vercel(),
   output: 'static',
+  // Canonicals and the sitemap both emit trailing slashes. Without this, Vercel
+  // served /panduan-faraid and /panduan-faraid/ as separate 200s and Google
+  // indexed both, splitting ranking signals across duplicate URLs.
+  trailingSlash: 'always',
   vite: {
     plugins: [tailwindcss()],
   },

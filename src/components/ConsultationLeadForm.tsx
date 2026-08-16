@@ -213,7 +213,7 @@ const ConsultationLeadForm: React.FC<ConsultationLeadFormProps> = ({ requiresExp
                   <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-teal-950">
                     <input type="checkbox" checked={form.consent} onChange={event => update('consent', event.target.checked)} className="mt-1 h-4 w-4 rounded border-teal-400 text-teal-700 focus:ring-teal-600" />
                     <span>
-                      Saya bersetuju KiraFaraid berkongsi nama dan butiran hubungan saya dengan <strong>{partnerName}</strong> supaya beliau boleh menghubungi saya mengenai pertanyaan ini. Saya telah membaca <a href="/dasar-privasi" target="_blank" className="font-semibold underline underline-offset-2">Dasar Privasi</a>.
+                      Saya bersetuju KiraFaraid berkongsi nama dan butiran hubungan saya dengan <strong>{partnerName}</strong> supaya beliau boleh menghubungi saya mengenai pertanyaan ini. Saya telah membaca <a href="/dasar-privasi/" target="_blank" className="font-semibold underline underline-offset-2">Dasar Privasi</a>.
                     </span>
                   </label>
                   {fieldErrors.consent && <span className="mt-2 block text-xs text-rose-700">{fieldErrors.consent}</span>}
