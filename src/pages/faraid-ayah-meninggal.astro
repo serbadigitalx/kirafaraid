@@ -2,14 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
-import { buildArticle } from '../lib/seo';
+import { buildArticle, CALCULATOR_SCHEMA } from '../lib/seo';
 
-const jsonLd = buildArticle({
+const jsonLd = [
+  buildArticle({
   headline: "Faraid Ayah Meninggal - Pengiraan Faraid Jika Ayah Meninggal Dunia",
   description: "Ketahui pengiraan Faraid apabila ayah meninggal dunia. Bahagian isteri, anak-anak, dan ibu mengikut hukum Islam Mazhab Syafi'i di Malaysia.",
   path: "/faraid-ayah-meninggal/",
+  hasCalculator: true,
   datePublished: "2026-02-25",
-});
+  }),
+  CALCULATOR_SCHEMA,
+];
 ---
 
 <BaseLayout

@@ -3,13 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CartaImage from '../components/CartaImage.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
-import { buildArticle } from '../lib/seo';
+import { buildArticle, CALCULATOR_SCHEMA } from '../lib/seo';
 
 const jsonLd = [
   buildArticle({
     headline: "Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap",
     description: "Jadual (carta) pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i. Carta pecahan Faraid untuk suami, isteri, anak, dan ibu bapa.",
     path: "/jadual-pembahagian-faraid/",
+    hasCalculator: true,
     image: "https://www.kirafaraid.my/carta/carta-pembahagian-faraid.png",
     datePublished: "2026-02-25",
   }),
@@ -58,7 +59,8 @@ const jsonLd = [
         }
       }
     ]
-  }
+  },
+  CALCULATOR_SCHEMA,
 ];
 ---
 

@@ -2,14 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
-import { buildArticle } from '../lib/seo';
+import { buildArticle, CALCULATOR_SCHEMA } from '../lib/seo';
 
-const jsonLd = buildArticle({
+const jsonLd = [
+  buildArticle({
   headline: "Harta Sepencarian - Cara Kira dan Hubungannya dengan Faraid",
   description: "Panduan lengkap harta sepencarian di Malaysia. Ketahui cara mengira harta sepencarian dan hubungannya dengan pembahagian Faraid harta pusaka Islam.",
   path: "/harta-sepencarian/",
+  hasCalculator: true,
   datePublished: "2026-02-25",
-});
+  }),
+  CALCULATOR_SCHEMA,
+];
 ---
 
 <BaseLayout

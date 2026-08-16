@@ -3,13 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CartaImage from '../components/CartaImage.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
-import { buildArticle } from '../lib/seo';
+import { buildArticle, CALCULATOR_SCHEMA } from '../lib/seo';
 
 const jsonLd = [
   buildArticle({
     headline: "Faraid Suami Meninggal - Pembahagian Harta Pusaka Jika Suami Meninggal Dunia",
     description: "Panduan lengkap pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri (1/8 atau 1/4), anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia, lengkap dengan jadual, contoh pengiraan RM, dalil, dan soalan lazim.",
     path: "/faraid-suami-meninggal/",
+    hasCalculator: true,
     image: "https://www.kirafaraid.my/carta/carta-pembahagian-faraid-suami-meninggal.png",
     datePublished: "2026-02-25",
   }),
@@ -58,7 +59,8 @@ const jsonLd = [
         }
       }
     ]
-  }
+  },
+  CALCULATOR_SCHEMA,
 ];
 ---
 

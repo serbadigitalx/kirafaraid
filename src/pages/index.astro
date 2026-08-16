@@ -2,26 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
 import FaraidGuide from '../components/FaraidGuide.astro';
+import { CALCULATOR_SCHEMA } from '../lib/seo';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "KiraFaraid - Kalkulator Faraid Malaysia",
-  "url": "https://www.kirafaraid.my",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "MYR"
-  },
-  "description": "Kalkulator pendidikan Faraid berasaskan kaedah Mazhab Syafi'i. Anggarkan pembahagian bagi kes yang disokong dan kenal pasti kes yang memerlukan semakan pakar.",
-  "inLanguage": "ms",
-  "creator": {
-    "@type": "Organization",
-    "name": "KiraFaraid"
-  }
-};
+// The calculator is defined once in lib/seo and shared by every page that
+// embeds it, so all of them resolve to a single WebApplication entity.
+const jsonLd = CALCULATOR_SCHEMA;
 ---
 
 <BaseLayout

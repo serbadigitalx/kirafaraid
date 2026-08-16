@@ -2,14 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
-import { buildArticle } from '../lib/seo';
+import { buildArticle, CALCULATOR_SCHEMA } from '../lib/seo';
 
-const jsonLd = buildArticle({
+const jsonLd = [
+  buildArticle({
   headline: "Cara Pengiraan Faraid KWSP - Panduan Lengkap Pembahagian Wang KWSP",
   description: "Ketahui cara pengiraan Faraid untuk wang KWSP (Kumpulan Wang Simpanan Pekerja). Panduan lengkap pembahagian wang KWSP mengikut hukum Faraid Islam di Malaysia.",
   path: "/cara-pengiraan-faraid-kwsp/",
+  hasCalculator: true,
   datePublished: "2026-02-25",
-});
+  }),
+  CALCULATOR_SCHEMA,
+];
 ---
 
 <BaseLayout
