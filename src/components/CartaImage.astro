@@ -1,0 +1,37 @@
+---
+// Renders a carta (reference chart) as a real, crawlable raster image.
+//
+// These are the only content images on the site, and they exist deliberately:
+// `carta pembahagian faraid` and its scenario variants return an image pack at
+// the top of the SERP, which the site could not enter with no <img> anywhere.
+// Inline SVG would not be indexed by Google Images, so this must stay an <img>
+// pointing at a real file.
+//
+// Regenerate the files with: node scripts/generate-carta.mjs
+
+interface Props {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  /** Set on the page where this chart is the primary subject, so it is eager-loaded. */
+  primary?: boolean;
+}
+
+const { src, alt, caption, width, height, primary = false } = Astro.props;
+---
+
+<figure class="my-8">
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={primary ? 'eager' : 'lazy'}
+    fetchpriority={primary ? 'high' : 'auto'}
+    decoding="async"
+    class="w-full h-auto rounded-xl border border-warm-200 shadow-sm bg-white"
+  />
+  <figcaption class="text-xs text-warm-500 text-center mt-3">{caption}</figcaption>
+</figure>

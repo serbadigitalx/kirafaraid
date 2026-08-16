@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CartaImage from '../components/CartaImage.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import { buildArticle } from '../lib/seo';
@@ -9,6 +10,7 @@ const jsonLd = [
     headline: "Jadual Pembahagian Faraid - Carta Pecahan Faraid Lengkap",
     description: "Jadual (carta) pembahagian Faraid lengkap menunjukkan pecahan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i. Carta pecahan Faraid untuk suami, isteri, anak, dan ibu bapa.",
     path: "/jadual-pembahagian-faraid/",
+    image: "https://www.kirafaraid.my/carta/carta-pembahagian-faraid.png",
     datePublished: "2026-02-25",
   }),
   {
@@ -71,6 +73,15 @@ const jsonLd = [
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Jadual (carta) pecahan Faraid lengkap yang menyenaraikan bahagian setiap waris mengikut hukum Islam Mazhab Syafi'i di Malaysia.</p>
       <ArticleMeta datePublished="2026-02-25" />
     </header>
+
+    <CartaImage
+      src="/carta/carta-pembahagian-faraid.png"
+      alt="Carta pembahagian Faraid: bahagian suami, isteri, ibu, bapa dan anak-anak mengikut Mazhab Syafi'i"
+      caption="Carta pembahagian Faraid — kadar bahagian setiap waris utama beserta syaratnya."
+      width={2400}
+      height={2972}
+      primary
+    />
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 space-y-8">
       <div>

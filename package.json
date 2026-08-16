@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "test:faraid": "node scripts/test-faraid.mjs",
     "test:leads": "node scripts/test-leads.mjs",
-    "leads:hash-password": "node scripts/hash-lead-password.mjs"
+    "leads:hash-password": "node scripts/hash-lead-password.mjs",
+    "carta": "node scripts/generate-carta.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

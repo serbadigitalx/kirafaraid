@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CartaImage from '../components/CartaImage.astro';
 import Calculator from '../components/Calculator';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import { buildArticle } from '../lib/seo';
@@ -9,6 +10,7 @@ const jsonLd = [
     headline: "Faraid Suami Meninggal - Pembahagian Harta Pusaka Jika Suami Meninggal Dunia",
     description: "Panduan lengkap pembahagian harta pusaka mengikut Faraid apabila suami meninggal dunia. Bahagian isteri (1/8 atau 1/4), anak-anak, dan ibu bapa mengikut Mazhab Syafi'i di Malaysia, lengkap dengan jadual, contoh pengiraan RM, dalil, dan soalan lazim.",
     path: "/faraid-suami-meninggal/",
+    image: "https://www.kirafaraid.my/carta/carta-pembahagian-faraid-suami-meninggal.png",
     datePublished: "2026-02-25",
   }),
   {
@@ -71,6 +73,14 @@ const jsonLd = [
       <p class="text-lg text-warm-600 max-w-2xl mx-auto">Apabila seorang suami meninggal dunia, isteri mendapat <strong>1/8</strong> jika ada anak atau <strong>1/4</strong> jika tiada anak, manakala anak lelaki mengambil baki (Asabah). Panduan lengkap pembahagian harta pusaka mengikut hukum Faraid Mazhab Syafi'i di Malaysia.</p>
       <ArticleMeta datePublished="2026-02-25" />
     </header>
+
+    <CartaImage
+      src="/carta/carta-pembahagian-faraid-suami-meninggal.png"
+      alt="Carta pembahagian Faraid apabila suami meninggal dunia: bahagian isteri, ibu bapa dan anak-anak"
+      caption="Carta pembahagian Faraid apabila si mati seorang suami."
+      width={2400}
+      height={2528}
+    />
 
     <div class="bg-white rounded-2xl shadow-sm border border-warm-200 p-6 md:p-10 prose prose-slate max-w-none">
       <h2 class="text-2xl font-bold text-teal-800">Ringkasan Pembahagian</h2>
