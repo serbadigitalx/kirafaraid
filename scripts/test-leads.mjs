@@ -24,6 +24,7 @@ try {
   const httpModule = await server.ssrLoadModule('/src/lib/server/http.ts');
   const storeModule = await server.ssrLoadModule('/src/lib/server/supabaseRest.ts');
   const leadApiModule = await server.ssrLoadModule('/src/pages/api/leads/index.ts');
+  const healthApiModule = await server.ssrLoadModule('/src/pages/api/health.ts');
   const loginApiModule = await server.ssrLoadModule('/src/pages/api/auth/login.ts');
   const { normaliseMalaysianPhone, validateLeadSubmission } = validationModule;
   const { authenticateDashboardUser, createSessionToken, readSessionToken } = authModule;
@@ -141,6 +142,64 @@ try {
     })
   });
   assert.equal(crossOriginResponse.status, 403);
+
+  const captureConsoleError = async (run) => {
+    const originalConsoleError = console.error;
+    const lines = [];
+    console.error = (...args) => lines.push(args.join(' '));
+    try {
+      return { result: await run(), lines };
+    } finally {
+      console.error = originalConsoleError;
+    }
+  };
+
+  globalThis.fetch = async () => {
+    throw new Error('getaddrinfo ENOTFOUND project.supabase.co');
+  };
+
+  const outage = await captureConsoleError(() => leadApiModule.POST({
+    request: new Request('https://www.kirafaraid.my/api/leads', {
+      method: 'POST',
+      headers: { origin: 'https://www.kirafaraid.my', 'content-type': 'application/json' },
+      body: JSON.stringify(validInput)
+    })
+  }));
+  assert.equal(outage.result.status, 503);
+  const recoveryLine = outage.lines.find(line => line.startsWith('LEAD_SAVE_FAILED '));
+  assert.ok(recoveryLine, 'A store outage must leave the lead recoverable from the logs.');
+  const recoveredLead = JSON.parse(recoveryLine.slice('LEAD_SAVE_FAILED '.length));
+  assert.equal(recoveredLead.phone, '+60123456789');
+  assert.equal(recoveredLead.name, 'Nur Aisyah');
+  assert.equal(recoveredLead.consent_given, true);
+
+  const unhealthy = await captureConsoleError(() => healthApiModule.GET({
+    request: new Request('https://www.kirafaraid.my/api/health')
+  }));
+  assert.equal(unhealthy.result.status, 503);
+  assert.deepEqual(await unhealthy.result.json(), { ok: false, reason: 'unreachable' });
+
+  globalThis.fetch = async () => new Response(JSON.stringify([]), { status: 200 });
+  const healthy = await healthApiModule.GET({
+    request: new Request('https://www.kirafaraid.my/api/health')
+  });
+  assert.equal(healthy.status, 200);
+  assert.deepEqual(await healthy.json(), { ok: true });
+
+  process.env.CRON_SECRET = 'cron-secret-with-more-than-thirty-two-characters';
+  const unauthorisedHealth = await healthApiModule.GET({
+    request: new Request('https://www.kirafaraid.my/api/health', {
+      headers: { authorization: 'Bearer wrong-secret' }
+    })
+  });
+  assert.equal(unauthorisedHealth.status, 401);
+  const authorisedHealth = await healthApiModule.GET({
+    request: new Request('https://www.kirafaraid.my/api/health', {
+      headers: { authorization: `Bearer ${process.env.CRON_SECRET}` }
+    })
+  });
+  assert.equal(authorisedHealth.status, 200);
+  delete process.env.CRON_SECRET;
 
   let sessionCookie;
   const loginResponse = await loginApiModule.POST({
